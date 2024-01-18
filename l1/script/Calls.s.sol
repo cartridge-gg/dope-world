@@ -14,30 +14,30 @@ import "./BaseScript.sol";
 */
 contract Deposit is BaseScript {
     address _token;
-    address _StarknetPaperBridge;
+    address _starknetPaperBridge;
 
     function setUp() public {
         string memory json = vm.readFile('./logs/local.json');
 
         _token = abi.decode(vm.parseJson(json,'.Token'), (address));
-        _StarknetPaperBridge = abi.decode(vm.parseJson(json,'.StarknetPaperBridge'), (address));
+        _starknetPaperBridge = abi.decode(vm.parseJson(json,'.StarknetPaperBridge'), (address));
     }
 
     function run() public{
         vm.startBroadcast(this.getEnv().ACCOUNT_PRIVATE_KEY);
 
         uint256 amount = 1_000 * 10**18;
-        uint256 l2Recipient = 0x517ececd29116499f4a1b64b094da79ba08dfd54a3edaa316134c41f8160973;
+        uint256 l2Recipient = 0x6162896d1d7ab204c7ccac6dd5f8e9e7c25ecd5ae4fcb4ad32e57786bb46e03;
         uint fee = 30_000;
 
         // mint token to owner
         Token(_token).mint(this.getEnv().ACCOUNT_ADDRESS, amount);
         
         // owner approve bridge for amount
-        Token(_token).approve(_StarknetPaperBridge, amount);
+        Token(_token).approve(_starknetPaperBridge, amount);
 
         // call token bridge 
-        StarknetPaperBridge(_StarknetPaperBridge).deposit{value: fee}(amount, l2Recipient, fee);
+        StarknetPaperBridge(_starknetPaperBridge).deposit{value: fee}(amount, l2Recipient, fee);
 
         vm.stopBroadcast();
     }
@@ -46,13 +46,13 @@ contract Deposit is BaseScript {
 
 contract Withdraw is BaseScript {
     address _token;
-    address _StarknetPaperBridge;
+    address _starknetPaperBridge;
 
     function setUp() public {
         string memory json = vm.readFile('./logs/local.json');
 
         _token = abi.decode(vm.parseJson(json,'.Token'), (address));
-        _StarknetPaperBridge = abi.decode(vm.parseJson(json,'.StarknetPaperBridge'), (address));
+        _starknetPaperBridge = abi.decode(vm.parseJson(json,'.StarknetPaperBridge'), (address));
     }
 
     function run() public returns(uint256 balance){
@@ -64,7 +64,7 @@ contract Withdraw is BaseScript {
 
 
         // call token bridge 
-        StarknetPaperBridge(_StarknetPaperBridge).withdraw(amount, l1Recipient, l2TxHash);
+        StarknetPaperBridge(_starknetPaperBridge).withdraw(amount, l1Recipient, l2TxHash);
 
         // get balance
         balance = Token(_token).balanceOf(l1Recipient);

@@ -35,9 +35,6 @@ katana_msg:
 katana_msg_slow:
 	katana --messaging anvil.messaging.json --dev --block-time 5000
 
-katana_msg_fork:
-	katana --messaging anvil.messaging.json --dev --disable-fee --rpc-url ${FORK_RPC_URL} --fork-block-number 929763
-
 build:
 	sozo build
 

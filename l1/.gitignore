@@ -1,13 +1,13 @@
 # Dotenv file
 .env
+.env.goerli
+
 
 # Compiler files
 cache/
 out/
 broadcast/
 
-
-lib/forge-std
 
 /logs
 

@@ -18,20 +18,14 @@ token = { git = "https://github.com/dojoengine/origami", commit = "daa1646" }
 katana_msg = "katana --messaging anvil.messaging.json --dev"
 migrate = "sozo build && sozo migrate && ./scripts/initialize.sh local"
 
-get_balance = "sozo model get ERC20BalanceModel 0x792b78f74ae3631aa8795da847d57d7a45511f7c4711c4e81f2df2dac0fc177 0x517ececd29116499f4a1b64b094da79ba08dfd54a3edaa316134c41f8160973 --world 0x4f5310a18e23b0d3b20e58156d2a9552c16e6995b30d633911ee85ba5aeeeda --rpc-url http://localhost:5050"
-withdraw = "sozo execute -c 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266,0x3635c9adc5dea00000,0 0x2ff2f9994ba7e039f50190cb3b3dc538d9abf7201acbe5a6a7aff686dd40d89 initiate_withdrawal"
+get_balance = "sozo model get ERC20BalanceModel 0x158be17c8c09dd5d1942c2730d72beb3d0aeb48b61d6b18505fa65ff4b0e84 0x6162896d1d7ab204c7ccac6dd5f8e9e7c25ecd5ae4fcb4ad32e57786bb46e03 --world 0x45400733b6ba466b4742f41ff0f31d55476c750c718ff141842afba499fccd2 --rpc-url http://localhost:5050"
+withdraw = "sozo execute -c 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266,0x3635c9adc5dea00000,0 0x6499c1ec432db1ab906479d8c4f13125636b3939ef36b6f3fc0b09c3e499734 initiate_withdrawal"
 
-# [tool.dojo.env]
-# # Katana
-# account_address = "0x517ececd29116499f4a1b64b094da79ba08dfd54a3edaa316134c41f8160973"
-# private_key = "0x1800000000300000180000000000030000000000003006001800006600"
-# rpc_url = "http://localhost:5050"
-
-# [tool.dojo.env]
-# account_address = "0x071b13f89cd09fe04b20de55c5fdab67d1fdee0433fce1a6e9088090762df0fe"
-# keystore = "./accounts/keystore.json"
-# password = "dojobridge"
-# rpc_url = "https://starknet-goerli.g.alchemy.com/v2/qtdLys1T51z8inozPo7lSOfQ9mQueQRj"
+[tool.dojo.env]
+# Katana
+account_address = "0x6162896d1d7ab204c7ccac6dd5f8e9e7c25ecd5ae4fcb4ad32e57786bb46e03"
+private_key = "0x1800000000300000180000000000030000000000003006001800006600"
+rpc_url = "http://localhost:5050"
 
 [[target.dojo]]
 build-external-contracts = [

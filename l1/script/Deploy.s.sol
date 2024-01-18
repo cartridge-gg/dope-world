@@ -12,9 +12,8 @@ import "./BaseScript.sol";
 bytes32 constant CREATE3_SALT = keccak256(bytes("CREATE3Salt"));
 
 bytes32 constant SN_SALT = keccak256(bytes("SNSalt"));
-bytes32 constant TOKEN_SALT = keccak256(bytes("TokenSalt"));
-bytes32 constant BRIDGE_SALT = keccak256(bytes("BridgeSalt1"));
-
+bytes32 constant TOKEN_SALT = keccak256(bytes("Token"));
+bytes32 constant BRIDGE_SALT = keccak256(bytes("StarknetPaperBridge"));
 
 /**
    Deploys the ContractMsg and StarknetMessagingLocal contracts.
@@ -53,7 +52,7 @@ contract Deploy is BaseScript {
         }
         vm.serializeString(json, "Token", vm.toString(tokenAddress));
 
-        address StarknetPaperBridge = factory.deploy(
+        address starknetPaperBridge = factory.deploy(
             BRIDGE_SALT,
             abi.encodePacked(
                 type(StarknetPaperBridge).creationCode,
@@ -64,7 +63,7 @@ contract Deploy is BaseScript {
                 )
             )
         );
-        vm.serializeString(json, "StarknetPaperBridge", vm.toString(StarknetPaperBridge));
+        vm.serializeString(json, "StarknetPaperBridge", vm.toString(starknetPaperBridge));
 
         vm.stopBroadcast();
 
