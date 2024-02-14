@@ -1,10 +1,14 @@
 import {
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalBody,
-  Text,
   Box,
+  Button,
+  HStack,
+  Heading,
+  Link,
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalOverlay,
+  Progress,
   Step,
   StepIcon,
   StepIndicator,
@@ -12,28 +16,24 @@ import {
   StepStatus,
   StepTitle,
   Stepper,
-  useSteps,
+  Text,
   VStack,
-  Button,
-  Progress,
-  HStack,
-  Heading,
-  Link,
+  useSteps,
 } from "@chakra-ui/react";
 
-import { useEffect } from "react";
-import { BridgeChains, ValidChainId } from "../../common/types";
-import { AlertIcon } from "../Icons";
-import {
-  useWaitForTransaction as useWaitForTransactionEthereum,
-  useChainId as useEthereumChainId,
-  Address,
-} from "wagmi";
 import { useWaitForTransaction as useWaitForTransactionStarknet } from "@starknet-react/core";
-import { frenlyAddress, getExplorerLink } from "../../common/utils";
-import { ArrowUp } from "./BridgeStepper";
-import { colors } from "../../theme/colors";
+import { Dispatch, SetStateAction, useEffect } from "react";
+import {
+  Address,
+  useChainId as useEthereumChainId,
+  useWaitForTransaction as useWaitForTransactionEthereum,
+} from "wagmi";
+import { BridgeChains, ValidChainId } from "../../common/types";
+import { formatEtherBalance, frenlyAddress, getExplorerLink } from "../../common/utils";
 import config from "../../config";
+import { colors } from "../../theme/colors";
+import { AlertIcon } from "../Icons";
+import { ArrowUp } from "./BridgeStepper";
 
 export const stepsEthereum = [
   { title: "Initiating", description: <Text>Initiating transaction</Text> },
@@ -47,18 +47,28 @@ export const stepsEthereum = [
 export const stepsStarknet = [
   {
     title: "Initiating",
-    description: <Text>Initiating transaction</Text>,
+    description: (
+      <VStack gap={0} w="full">
+        <Text>Initiating transaction</Text>
+        <Text color="text.primary">{`Return to Paper Bridge in ~4hrs to claim your ${config.branding.tokenName}`}</Text>
+      </VStack>
+    ),
   },
   {
     title: "Waiting for confirmation",
-    description: <Text>Transaction initiated, waiting for confirmation</Text>,
+    description: (
+      <VStack gap={0} w="full">
+        <Text>Transaction initiated, waiting for confirmation</Text>
+        <Text color="text.primary">{`Return to Paper Bridge in ~4hrs to claim your ${config.branding.tokenName}`}</Text>
+      </VStack>
+    ),
   },
   {
     title: "Transaction Confirmed",
     description: (
       <VStack gap={0} w="full">
         <Text>Transaction Confirmed!</Text>
-        <Text color="text.primary">{`Return to Dojo Bridge in ~4hrs to claim your ${config.branding.tokenName}`}</Text>
+        <Text color="text.primary">{`Return to Paper Bridge in ~4hrs to claim your ${config.branding.tokenName}`}</Text>
       </VStack>
     ),
   },
@@ -67,6 +77,8 @@ export const stepsStarknet = [
 type TransactionCardProps = {
   title: string;
   fromChain: BridgeChains;
+  amount: string;
+  setAmount: Dispatch<SetStateAction<string>>;
   hash: string | undefined;
   isLoading: boolean;
   isSuccess: boolean;
@@ -79,6 +91,8 @@ type TransactionCardProps = {
 export const TransactionCard = ({
   title,
   fromChain,
+  amount,
+  setAmount,
   hash,
   isLoading,
   isSuccess,
@@ -125,6 +139,7 @@ export const TransactionCard = ({
   }, [isLoading, isError, isSuccess, isSuccessTxEthereum, isSuccessTxStarknet, hash, setActiveStep]);
 
   const onClose = () => {
+    setAmount("");
     reset();
   };
 
@@ -134,7 +149,13 @@ export const TransactionCard = ({
       <ModalContent bg="bg.dark" p={6} minW="580px" minH="480px" top="-20px">
         <ModalBody p={0} px={6}>
           <VStack w="full" gap={9}>
-            <Heading>{title}</Heading>
+            <VStack w="full">
+              <Heading>{title}</Heading>
+              <Text color="text.secondary">
+                {formatEtherBalance(Number(amount))} {config.branding.tokenName}
+              </Text>
+            </VStack>
+
             <Box position="relative">
               <Stepper colorScheme="grayscale" alignItems="flex-start !important" gap={6} index={activeStep}>
                 {steps.map((step, index) => (

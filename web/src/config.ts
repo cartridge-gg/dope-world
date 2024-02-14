@@ -1,11 +1,11 @@
 
-import { localhost, goerli, mainnet } from "viem/chains"
+import { goerli, localhost, mainnet } from "viem/chains"
 
-import l1DojoBridge from "./abis/L1DojoBridge.json"
+import starknetPaperBridge from "./abis/StarknetPaperBridge.json"
 import l1Token from "./abis/Token.json"
 
-import dojoToken from "./abis/dojo_bridge::dojo_token::dojo_token.json"
-import dojoBridge from "./abis/dojo_bridge::dojo_bridge::dojo_bridge.json"
+import paperBridge from "./abis/dope_world::paper_bridge::paper_bridge.json"
+import paperToken from "./abis/dope_world::paper_token::paper_token.json"
 
 import { BridgeChains } from "./common/types"
 import { mergeDeep } from "./common/utils"
@@ -28,7 +28,7 @@ const explorers = {
 
 const bridge = {
     l1: {
-        abi: l1DojoBridge.abi,
+        abi: starknetPaperBridge.abi,
         tokenAbi: l1Token.abi,
         address: {
             [localhost.id]: "0xA2a4A401C8C1D6eD1ec03504018F4A1988635031",
@@ -38,8 +38,8 @@ const bridge = {
 
     },
     sn: {
-        abi: dojoBridge.abi,
-        tokenAbi: dojoToken.abi,
+        abi: paperBridge.abi,
+        tokenAbi: paperToken.abi,
         address: {
             [localhost.id]: "0x2ff2f9994ba7e039f50190cb3b3dc538d9abf7201acbe5a6a7aff686dd40d89",
             [goerli.id]: "0x2ff2f9994ba7e039f50190cb3b3dc538d9abf7201acbe5a6a7aff686dd40d89",
@@ -77,8 +77,8 @@ const chains = enableTestnets ? [localhostOverride, goerliOverride, mainnetOverr
 
 const config = {
     branding: {
-        name: "cart bridge",
-        tokenName: "$TOKEN",
+        name: "$PAPER BRIDGE",
+        tokenName: "$PAPER",
         logo: "/mark-dark.svg"
     },
     rainbowkit: {

@@ -3,10 +3,10 @@ import {
   CardBody,
   HStack,
   Input,
+  Text,
   // InputGroup,
   // InputRightElement,
   VStack,
-  Text,
 } from "@chakra-ui/react";
 import { Dispatch, ReactNode, SetStateAction } from "react";
 import { formatEther } from "viem";

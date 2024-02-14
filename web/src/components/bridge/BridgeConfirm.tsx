@@ -1,24 +1,24 @@
 import {
-  Link,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalBody,
-  HStack,
-  VStack,
-  Text,
   Button,
   Checkbox,
+  HStack,
+  Link,
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalOverlay,
+  Text,
+  VStack,
 } from "@chakra-ui/react";
-import { BridgeChains, BridgeDirection } from "../../common/types";
-import config from "../../config";
-import { AlertIcon, ClockIcon } from "../Icons";
-import { useEffect, useState } from "react";
 import { UseAccountResult } from "@starknet-react/core";
-import { GetAccountResult } from "wagmi/actions";
+import { useEffect, useState } from "react";
 import { PublicClient } from "wagmi";
+import { GetAccountResult } from "wagmi/actions";
+import { BridgeChains, BridgeDirection } from "../../common/types";
 import { formatEtherBalance, getExplorerLink } from "../../common/utils";
+import config from "../../config";
 import useProviders from "../../hooks/useProviders";
+import { AlertIcon, ClockIcon } from "../Icons";
 
 export const BridgeConfirmModal = ({
   direction,

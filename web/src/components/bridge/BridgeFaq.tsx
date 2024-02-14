@@ -1,17 +1,17 @@
 import {
-  Box,
-  VStack,
-  Heading,
-  Button,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalBody,
   Accordion,
-  AccordionItem,
   AccordionButton,
-  AccordionPanel,
   AccordionIcon,
+  AccordionItem,
+  AccordionPanel,
+  Box,
+  Button,
+  Heading,
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalOverlay,
+  VStack,
 } from "@chakra-ui/react";
 
 const faq = [
@@ -20,7 +20,7 @@ const faq = [
     answer: "That's a good question",
   },
   {
-    question: "What is Dojo Bridge?",
+    question: "What is Paper Bridge?",
     answer: "That's a good question",
   },
   {

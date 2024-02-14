@@ -1,36 +1,34 @@
 import { useEffect, useState } from "react";
 
-import { Card, VStack, HStack, Heading, CardBody, Button, Box, Spinner } from "@chakra-ui/react";
+import { Box, Button, Card, CardBody, HStack, Heading, Spinner, VStack } from "@chakra-ui/react";
 
-import { useSteps } from "@chakra-ui/react";
 
-import { Ethereum, Starknet, Swap, HistoryIcon, InformationIcon, BridgeIcon, QuestionIcon } from "./Icons";
-import { useContractRead as useEthereumContractRead, useContractWrite as useEthereumContractWrite } from "wagmi";
 import {
   useContractRead as useStarknetContractRead,
   useContractWrite as useStarknetContractWrite,
 } from "@starknet-react/core";
+import { useContractRead as useEthereumContractRead, useContractWrite as useEthereumContractWrite } from "wagmi";
+import { Ethereum, HistoryIcon, InformationIcon, PaperIcon, QuestionIcon, Starknet, Swap } from "./Icons";
 
-import config from "../config";
-import { parseEther, formatEther, Address } from "viem";
 import { Contract, shortString, uint256 } from "starknet";
+import { Address, formatEther, parseEther } from "viem";
+import config from "../config";
 import { getChainById } from "./web3/EthereumProviders";
 import { getStarknetChainIdFromEthereumChain } from "./web3/StarknetProviders";
 
-import { Token } from "./bridge/Token";
-import { BridgeStepper } from "./bridge/BridgeStepper";
-import { BridgeHistory } from "./bridge/BridgeHistory";
-import { BridgeConfirmModal } from "./bridge/BridgeConfirm";
-import { TransactionCard } from "./bridge/TransactionCard";
-import { BridgeDirection, BridgeChains, BridgeSide } from "../common/types";
+import { BridgeChains, BridgeDirection, BridgeSide } from "../common/types";
 import { getEthereumBridgeAddress, getStarknetBridgeAddress, sanitizeAmount } from "../common/utils";
 import { BridgeAlert } from "./bridge/BridgeAlert";
+import { BridgeConfirmModal } from "./bridge/BridgeConfirm";
 import { BridgeDetails } from "./bridge/BridgeDetails";
+import { BridgeHistory } from "./bridge/BridgeHistory";
+import { Token } from "./bridge/Token";
+import { TransactionCard } from "./bridge/TransactionCard";
 
-import useProviders from "../hooks/useProviders";
 import useHistory from "../hooks/useHistory";
-import { Pill } from "./bridge/Pill";
+import useProviders from "../hooks/useProviders";
 import { BridgeFaq } from "./bridge/BridgeFaq";
+import { Pill } from "./bridge/Pill";
 
 // import { Debug } from "./bridge/Debug";
 
@@ -51,10 +49,10 @@ const Bridge = () => {
 
   const [starknetTokenAddress, setStarknetTokenAddress] = useState("");
 
-  const { activeStep, setActiveStep } = useSteps({
-    index: 0,
-    count: 3,
-  });
+  // const { activeStep, setActiveStep } = useSteps({
+  //   index: 0,
+  //   count: 3,
+  // });
 
   const { ethereumAccount, starknetAccount, ethereumChainId } = useProviders();
 
@@ -296,59 +294,59 @@ const Bridge = () => {
   // Stepper
   //
 
-  useEffect(() => {
-    let newActiveStep = 0;
-    // step 1
-    if (walletsConnected && chainsMatching && activeStep <= 1) {
-      newActiveStep = 1;
-    }
+  // useEffect(() => {
+  //   let newActiveStep = 0;
+  //   // step 1
+  //   if (walletsConnected && chainsMatching && activeStep <= 1) {
+  //     newActiveStep = 1;
+  //   }
 
-    // step 2
-    if (direction === BridgeDirection.FromEthereumToStarknet) {
-      if (walletsConnected && chainsMatching && isValidAmount && isEnoughtAllowance && activeStep <= 2) {
-        newActiveStep = 2;
-      }
-    }
-    if (direction === BridgeDirection.FromStarknetToEthereum) {
-      if (walletsConnected && chainsMatching && isSuccessStarknetBridgeWithdraw && activeStep <= 2) {
-        newActiveStep = 2;
-      }
-    }
+  //   // step 2
+  //   if (direction === BridgeDirection.FromEthereumToStarknet) {
+  //     if (walletsConnected && chainsMatching && isValidAmount && isEnoughtAllowance && activeStep <= 2) {
+  //       newActiveStep = 2;
+  //     }
+  //   }
+  //   if (direction === BridgeDirection.FromStarknetToEthereum) {
+  //     if (walletsConnected && chainsMatching && isSuccessStarknetBridgeWithdraw && activeStep <= 2) {
+  //       newActiveStep = 2;
+  //     }
+  //   }
 
-    // step 3
-    if (direction === BridgeDirection.FromEthereumToStarknet) {
-      if (isSuccessEthereumBridgeDeposit && ethereumBridgeDepositData && activeStep <= 3) {
-        newActiveStep = 3;
-      }
-    }
+  //   // step 3
+  //   if (direction === BridgeDirection.FromEthereumToStarknet) {
+  //     if (isSuccessEthereumBridgeDeposit && ethereumBridgeDepositData && activeStep <= 3) {
+  //       newActiveStep = 3;
+  //     }
+  //   }
 
-    if (direction === BridgeDirection.FromStarknetToEthereum) {
-      if (isSuccessStarknetBridgeWithdraw && starknetBridgeWithdrawData && activeStep <= 3) {
-        newActiveStep = 2; // step 3 is withdraw on eth and happen hours after
-      }
-    }
+  //   if (direction === BridgeDirection.FromStarknetToEthereum) {
+  //     if (isSuccessStarknetBridgeWithdraw && starknetBridgeWithdrawData && activeStep <= 3) {
+  //       newActiveStep = 2; // step 3 is withdraw on eth and happen hours after
+  //     }
+  //   }
 
-    setActiveStep(newActiveStep);
-  }, [
-    direction,
-    ethereumChainId,
-    walletsConnected,
-    chainsMatching,
-    isValidAmount,
-    isEnoughtAllowance,
-    isSuccessStarknetBridgeWithdraw,
-    isSuccessEthereumBridgeDeposit,
-    ethereumBridgeDepositData,
-    starknetAccount.chainId,
-    activeStep,
-    setActiveStep,
-  ]);
+  //   setActiveStep(newActiveStep);
+  // }, [
+  //   direction,
+  //   ethereumChainId,
+  //   walletsConnected,
+  //   chainsMatching,
+  //   isValidAmount,
+  //   isEnoughtAllowance,
+  //   isSuccessStarknetBridgeWithdraw,
+  //   isSuccessEthereumBridgeDeposit,
+  //   ethereumBridgeDepositData,
+  //   starknetAccount.chainId,
+  //   activeStep,
+  //   setActiveStep,
+  // ]);
 
   useEffect(() => {
     refetchEthereumTokenBalance();
     refetchEthereumTokenAllowance();
     refetchStarknetTokenBalance();
-    setTokenAmount("");
+    // setTokenAmount("");
   }, [
     ethereumChainId,
     starknetAccount.chainId,
@@ -359,7 +357,7 @@ const Bridge = () => {
     refetchEthereumTokenAllowance,
     refetchEthereumTokenBalance,
     refetchStarknetTokenBalance,
-    setActiveStep,
+   // setActiveStep,
     starknetBridgeWithdrawData,
   ]);
 
@@ -428,7 +426,7 @@ const Bridge = () => {
         <HStack w="full" maxW="560px" justifyContent="space-between" position="relative">
           <HStack>
             <HStack color="text.primary" bgColor="bg.light" gap={3} p={2} px={4} borderRadius={8}>
-              <BridgeIcon width="20px" height="20px" />
+              <PaperIcon width="20px" height="20px" />
               <Heading fontSize="24px"> {config.branding.tokenName}</Heading>
             </HStack>
             <Button
@@ -559,6 +557,8 @@ const Bridge = () => {
           <TransactionCard
             title="Approve Ethereum Bridge"
             fromChain={BridgeChains.Ethereum}
+            amount={tokenAmount}
+            setAmount={setTokenAmount}
             hash={ethereumApproveData?.hash}
             isLoading={isLoadingEthereumApprove}
             isSuccess={isSuccessEthereumApprove}
@@ -573,6 +573,8 @@ const Bridge = () => {
           <TransactionCard
             title="Bridge to Starknet"
             fromChain={BridgeChains.Ethereum}
+            amount={tokenAmount}
+            setAmount={setTokenAmount}
             hash={ethereumBridgeDepositData?.hash}
             isLoading={isLoadingEthereumBridgeDeposit}
             isSuccess={isSuccessEthereumBridgeDeposit}
@@ -587,6 +589,8 @@ const Bridge = () => {
           <TransactionCard
             title="Withdraw from Ethereum Bridge"
             fromChain={BridgeChains.Ethereum}
+            amount={tokenAmount}
+            setAmount={setTokenAmount}
             hash={ethereumBridgeWithdrawData?.hash}
             isLoading={isLoadingEthereumBridgeWithdraw}
             isSuccess={isSuccessEthereumBridgeWithdraw}
@@ -603,6 +607,8 @@ const Bridge = () => {
           <TransactionCard
             title="Bridge to Ethereum"
             fromChain={BridgeChains.Starknet}
+            amount={tokenAmount}
+            setAmount={setTokenAmount}
             hash={starknetBridgeWithdrawData?.transaction_hash}
             isLoading={isPendingStarknetBridgeWithdraw}
             isSuccess={isSuccessStarknetBridgeWithdraw}
@@ -635,7 +641,7 @@ const Bridge = () => {
 
         <BridgeFaq onClose={() => setIsBridgeFaqOpen(false)} isOpen={isBridgeFaqOpen} />
 
-        <BridgeStepper direction={direction} activeStep={activeStep}></BridgeStepper>
+        {/* <BridgeStepper direction={direction} activeStep={activeStep}></BridgeStepper> */}
 
         <BridgeConfirmModal
           direction={direction}

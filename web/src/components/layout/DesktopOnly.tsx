@@ -1,4 +1,4 @@
-import { Box, VStack, Text } from "@chakra-ui/react";
+import { Box, Text, VStack } from "@chakra-ui/react";
 import { LaptopIcon } from "../Icons";
 
 export const DesktopOnly = () => {
@@ -18,7 +18,7 @@ export const DesktopOnly = () => {
     >
       <VStack>
         <LaptopIcon />
-        <Text>Dojo Bridge is desktop only</Text>
+        <Text>Paper Bridge is desktop only</Text>
       </VStack>
     </Box>
   );

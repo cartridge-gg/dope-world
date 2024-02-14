@@ -1,23 +1,22 @@
 import "@rainbow-me/rainbowkit/styles.css";
 import "../../rainbowkit.css";
 
-import * as React from "react";
 import {
-  RainbowKitProvider,
-  getDefaultWallets,
-  connectorsForWallets,
-  darkTheme,
-  // AvatarComponent,
+    connectorsForWallets,
+    darkTheme,
+    getDefaultWallets,
+    RainbowKitProvider,
 } from "@rainbow-me/rainbowkit";
 import { ledgerWallet } from "@rainbow-me/rainbowkit/wallets";
+import * as React from "react";
 
+import { extractChain } from "viem";
 import { configureChains, createConfig, WagmiConfig } from "wagmi";
 import { publicProvider } from "wagmi/providers/public";
-import { extractChain } from "viem";
 
-import config from "../../config";
-import { BridgeIcon } from "../Icons";
 import { Box } from "@chakra-ui/react";
+import config from "../../config";
+import { GateIcon } from "../Icons";
 
 const { chains, publicClient, webSocketPublicClient } = configureChains([...config.chains], [publicProvider()]);
 
@@ -75,7 +74,7 @@ export function EthereumProviders({ children }: { children: React.ReactNode }) {
 export const CustomAvatar /*: AvatarComponent*/ = ({ address, size }: { address?: string; size?: number }) => {
   return (
     <Box color="cryellow.400">
-      <BridgeIcon width="74px" height="74px" />
+      <GateIcon width="74px" height="74px" />
     </Box>
   );
 };

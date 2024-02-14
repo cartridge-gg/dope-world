@@ -39,10 +39,10 @@ contract StarknetPaperBridge {
     /// @notice The Starknet Core contract address on L1
     address public immutable starknet;
 
-    /// @notice The $TOKEN ERC20 contract address on L1
+    /// @notice The $PAPER ERC20 contract address on L1
     address public immutable l1Token;
 
-    /// @notice The L2 address of the $TOKEN bridge, the counterpart to this contract
+    /// @notice The L2 address of the $PAPER bridge, the counterpart to this contract
     uint256 public immutable l2Bridge;
 
     event LogDeposit(
@@ -80,9 +80,9 @@ contract StarknetPaperBridge {
         l2Bridge = _l2Bridge;
     }
 
-    /// @notice Function used to bridge $TOKEN from L1 to L2
-    /// @param amount How many $TOKEN to send from msg.sender
-    /// @param l2Recipient To which L2 address should we deposit the $TOKEN to
+    /// @notice Function used to bridge $PAPER from L1 to L2
+    /// @param amount How many $PAPER to send from msg.sender
+    /// @param l2Recipient To which L2 address should we deposit the $PAPER to
     /// @param fee Compulsory fee paid to the sequencer for passing on the message
     function deposit(
         uint256 amount,
@@ -112,8 +112,8 @@ contract StarknetPaperBridge {
     }
 
     /// @notice Function to process the L2 withdrawal
-    /// @param amount How many $TOKEN were sent from L2
-    /// @param l1Recipient Recipient of the (de)bridged $TOKEN
+    /// @param amount How many $PAPER were sent from L2
+    /// @param l1Recipient Recipient of the (de)bridged $PAPER
     /// @param l2TxHash l2 tx_hash for matching txs in ui
     function withdraw(uint256 amount, address l1Recipient, uint256 l2TxHash) external {
         uint256[] memory payload = new uint256[](4);
