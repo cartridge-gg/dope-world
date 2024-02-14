@@ -151,9 +151,11 @@ export const TransactionCard = ({
           <VStack w="full" gap={9}>
             <VStack w="full">
               <Heading>{title}</Heading>
-              <Text color="text.secondary">
-                {formatEtherBalance(Number(amount))} {config.branding.tokenName}
-              </Text>
+              {Number(amount) > 0 && (
+                <Text color="text.secondary">
+                  {formatEtherBalance(Number(amount))} {config.branding.tokenName}
+                </Text>
+              )}
             </VStack>
 
             <Box position="relative">
