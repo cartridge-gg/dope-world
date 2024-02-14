@@ -7581,7 +7581,7 @@
       ],
       [
         64,
-        "function_call<user@dope_world::paper_token::paper_token::ERC20InitializerImpl::initializer>"
+        "function_call<user@dope_world::paper_token::paper_token::PaperInitializerImpl::initializer>"
       ],
       [
         65,
@@ -11055,7 +11055,7 @@
     "user_func_names": [
       [
         0,
-        "dope_world::paper_token::paper_token::__wrapper__dojo_resource"
+        "dope_world::paper_token::paper_token::__wrapper__DojoResourceProviderImpl__dojo_resource"
       ],
       [
         1,
@@ -11063,7 +11063,7 @@
       ],
       [
         2,
-        "dope_world::paper_token::paper_token::__wrapper__ERC20InitializerImpl__initializer"
+        "dope_world::paper_token::paper_token::__wrapper__PaperInitializerImpl__initializer"
       ],
       [
         3,
@@ -11167,7 +11167,7 @@
       ],
       [
         28,
-        "dope_world::paper_token::paper_token::ERC20InitializerImpl::initializer"
+        "dope_world::paper_token::paper_token::PaperInitializerImpl::initializer"
       ],
       [
         29,
@@ -11897,6 +11897,28 @@
   "abi": [
     {
       "type": "impl",
+      "name": "DojoResourceProviderImpl",
+      "interface_name": "dojo::world::IDojoResourceProvider"
+    },
+    {
+      "type": "interface",
+      "name": "dojo::world::IDojoResourceProvider",
+      "items": [
+        {
+          "type": "function",
+          "name": "dojo_resource",
+          "inputs": [],
+          "outputs": [
+            {
+              "type": "core::felt252"
+            }
+          ],
+          "state_mutability": "view"
+        }
+      ]
+    },
+    {
+      "type": "impl",
       "name": "WorldProviderImpl",
       "interface_name": "dojo::world::IWorldProvider"
     },
@@ -11928,24 +11950,35 @@
       ]
     },
     {
-      "type": "function",
-      "name": "initializer",
-      "inputs": [
+      "type": "impl",
+      "name": "PaperInitializerImpl",
+      "interface_name": "dope_world::paper_token::PaperInitializerTrait"
+    },
+    {
+      "type": "interface",
+      "name": "dope_world::paper_token::PaperInitializerTrait",
+      "items": [
         {
-          "name": "name",
-          "type": "core::felt252"
-        },
-        {
-          "name": "symbol",
-          "type": "core::felt252"
-        },
-        {
-          "name": "l2_bridge_address",
-          "type": "core::starknet::contract_address::ContractAddress"
+          "type": "function",
+          "name": "initializer",
+          "inputs": [
+            {
+              "name": "name",
+              "type": "core::felt252"
+            },
+            {
+              "name": "symbol",
+              "type": "core::felt252"
+            },
+            {
+              "name": "l2_bridge_address",
+              "type": "core::starknet::contract_address::ContractAddress"
+            }
+          ],
+          "outputs": [],
+          "state_mutability": "external"
         }
-      ],
-      "outputs": [],
-      "state_mutability": "external"
+      ]
     },
     {
       "type": "impl",
@@ -12414,17 +12447,6 @@
           "state_mutability": "external"
         }
       ]
-    },
-    {
-      "type": "function",
-      "name": "dojo_resource",
-      "inputs": [],
-      "outputs": [
-        {
-          "type": "core::felt252"
-        }
-      ],
-      "state_mutability": "view"
     },
     {
       "type": "event",

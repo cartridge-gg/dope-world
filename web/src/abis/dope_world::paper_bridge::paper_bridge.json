@@ -4527,7 +4527,7 @@
       ],
       [
         58,
-        "function_call<user@dope_world::paper_bridge::paper_bridge::ERC20InitializerImpl::initializer>"
+        "function_call<user@dope_world::paper_bridge::paper_bridge::DojoBridgeImpl::initializer>"
       ],
       [
         59,
@@ -6941,7 +6941,7 @@
     "user_func_names": [
       [
         0,
-        "dope_world::paper_bridge::paper_bridge::__wrapper__dojo_resource"
+        "dope_world::paper_bridge::paper_bridge::__wrapper__DojoResourceProviderImpl__dojo_resource"
       ],
       [
         1,
@@ -6949,7 +6949,7 @@
       ],
       [
         2,
-        "dope_world::paper_bridge::paper_bridge::__wrapper__ERC20InitializerImpl__initializer"
+        "dope_world::paper_bridge::paper_bridge::__wrapper__DojoBridgeImpl__initializer"
       ],
       [
         3,
@@ -6993,7 +6993,7 @@
       ],
       [
         13,
-        "dope_world::paper_bridge::paper_bridge::ERC20InitializerImpl::initializer"
+        "dope_world::paper_bridge::paper_bridge::DojoBridgeImpl::initializer"
       ],
       [
         14,
@@ -7392,6 +7392,28 @@
   "abi": [
     {
       "type": "impl",
+      "name": "DojoResourceProviderImpl",
+      "interface_name": "dojo::world::IDojoResourceProvider"
+    },
+    {
+      "type": "interface",
+      "name": "dojo::world::IDojoResourceProvider",
+      "items": [
+        {
+          "type": "function",
+          "name": "dojo_resource",
+          "inputs": [],
+          "outputs": [
+            {
+              "type": "core::felt252"
+            }
+          ],
+          "state_mutability": "view"
+        }
+      ]
+    },
+    {
+      "type": "impl",
       "name": "WorldProviderImpl",
       "interface_name": "dojo::world::IWorldProvider"
     },
@@ -7423,20 +7445,9 @@
       ]
     },
     {
-      "type": "function",
-      "name": "initializer",
-      "inputs": [
-        {
-          "name": "l1_bridge",
-          "type": "core::felt252"
-        },
-        {
-          "name": "l2_token",
-          "type": "core::starknet::contract_address::ContractAddress"
-        }
-      ],
-      "outputs": [],
-      "state_mutability": "external"
+      "type": "impl",
+      "name": "DojoBridgeImpl",
+      "interface_name": "dope_world::paper_bridge::DojoBridgeTrait"
     },
     {
       "type": "struct",
@@ -7453,42 +7464,64 @@
       ]
     },
     {
-      "type": "function",
-      "name": "initiate_withdrawal",
-      "inputs": [
+      "type": "interface",
+      "name": "dope_world::paper_bridge::DojoBridgeTrait",
+      "items": [
         {
-          "name": "l1_recipient",
-          "type": "core::felt252"
+          "type": "function",
+          "name": "initializer",
+          "inputs": [
+            {
+              "name": "l1_bridge",
+              "type": "core::felt252"
+            },
+            {
+              "name": "l2_token",
+              "type": "core::starknet::contract_address::ContractAddress"
+            }
+          ],
+          "outputs": [],
+          "state_mutability": "external"
         },
         {
-          "name": "amount",
-          "type": "core::integer::u256"
-        }
-      ],
-      "outputs": [],
-      "state_mutability": "external"
-    },
-    {
-      "type": "function",
-      "name": "get_l1_bridge",
-      "inputs": [],
-      "outputs": [
+          "type": "function",
+          "name": "initiate_withdrawal",
+          "inputs": [
+            {
+              "name": "l1_recipient",
+              "type": "core::felt252"
+            },
+            {
+              "name": "amount",
+              "type": "core::integer::u256"
+            }
+          ],
+          "outputs": [],
+          "state_mutability": "external"
+        },
         {
-          "type": "core::felt252"
-        }
-      ],
-      "state_mutability": "view"
-    },
-    {
-      "type": "function",
-      "name": "get_token",
-      "inputs": [],
-      "outputs": [
+          "type": "function",
+          "name": "get_l1_bridge",
+          "inputs": [],
+          "outputs": [
+            {
+              "type": "core::felt252"
+            }
+          ],
+          "state_mutability": "view"
+        },
         {
-          "type": "core::starknet::contract_address::ContractAddress"
+          "type": "function",
+          "name": "get_token",
+          "inputs": [],
+          "outputs": [
+            {
+              "type": "core::starknet::contract_address::ContractAddress"
+            }
+          ],
+          "state_mutability": "view"
         }
-      ],
-      "state_mutability": "view"
+      ]
     },
     {
       "type": "impl",
@@ -7512,17 +7545,6 @@
           "state_mutability": "external"
         }
       ]
-    },
-    {
-      "type": "function",
-      "name": "dojo_resource",
-      "inputs": [],
-      "outputs": [
-        {
-          "type": "core::felt252"
-        }
-      ],
-      "state_mutability": "view"
     },
     {
       "type": "l1_handler",
