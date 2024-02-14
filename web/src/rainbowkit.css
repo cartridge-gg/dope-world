@@ -1,0 +1,23 @@
+html body [data-rk] {
+  --rk-colors-modalBackground: var(--chakra-colors-bg-dark);
+  --rk-colors-profileForeground: var(--chakra-colors-bg-dark);
+  --rk-colors-modalText: var(--chakra-colors-text-default);
+  --rk-colors-profileAction: var(--chakra-colors-bg-dark);
+  --rk-colors-profileActionHover: var(--chakra-colors-bg-dark);
+  --rk-colors-accentColor: var(--chakra-colors-cryellow-600);
+  --rk-colors-accentColorForeground: var(--chakra-colorscryellow-800);
+  --rk-colors-menuItemBackground: var(--chakra-colors-bg-light);
+  --rk-colors-closeButton: transparent;
+  --rk-colors-closeButtonBackground: transparent;
+  --rk-colors-actionButtonBorder: transparent;
+  --rk-colors-modalBorder: transparent;
+}
+
+/* [data-rk] button {
+  border: solid 2px ;
+} */
+
+[data-rk] button:hover {
+  transform: none;
+}
+

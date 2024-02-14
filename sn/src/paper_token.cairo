@@ -1,3 +1,10 @@
+use starknet::ContractAddress;
+
+#[starknet::interface]
+trait PaperInitializerTrait<T> {
+    fn initializer(ref self: T, name: felt252, symbol: felt252, l2_bridge_address: ContractAddress);
+}
+
 #[dojo::contract]
 mod paper_token {
     use token::erc20::interface;
@@ -66,15 +73,15 @@ mod paper_token {
     #[abi(embed_v0)]
     impl ERC20MetadataTotalSupplyImpl =
         erc20_metadata_component::ERC20MetadataTotalSupplyImpl<ContractState>;
-    
-     #[abi(embed_v0)]
+
+    #[abi(embed_v0)]
     impl ERC20MetadataTotalSupplyCamelImpl =
         erc20_metadata_component::ERC20MetadataTotalSupplyCamelImpl<ContractState>;
 
     #[abi(embed_v0)]
     impl ERC20BalanceImpl =
         erc20_balance_component::ERC20BalanceImpl<ContractState>;
-    
+
     #[abi(embed_v0)]
     impl ERC20BalanceCamelImpl =
         erc20_balance_component::ERC20BalanceCamelImpl<ContractState>;
@@ -115,9 +122,8 @@ mod paper_token {
     // Initializer
     //
 
-    #[external(v0)]
-    #[generate_trait]
-    impl ERC20InitializerImpl of ERC20InitializerTrait {
+    #[abi(embed_v0)]
+    impl PaperInitializerImpl of super::PaperInitializerTrait<ContractState> {
         fn initializer(
             ref self: ContractState,
             name: felt252,
