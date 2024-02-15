@@ -1,21 +1,50 @@
-import { useState } from "react";
-import { Box, Button, HStack, Text, Image, VStack, Link } from "@chakra-ui/react";
-import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody } from "@chakra-ui/react";
-
-import { useAccount, useConnect, useDisconnect, useBalance, Connector } from "@starknet-react/core";
-
-import { frenlyAddress, getExplorerLink } from "../../common/utils";
-import { Starknet, CopyAddressIcon, DisconnectIcon, CopiedAddressIcon } from "../Icons";
-import { CustomAvatar } from "./EthereumProviders";
+import {
+  Box,
+  Button,
+  HStack,
+  Image,
+  Link,
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalHeader,
+  ModalOverlay,
+  Text,
+  VStack,
+} from "@chakra-ui/react";
+import { Connector, useAccount, useBalance, useConnect, useDisconnect } from "@starknet-react/core";
+import { getStarknet } from "get-starknet-core";
+import { useEffect, useState } from "react";
 import { AccountInterface } from "starknet";
 import { useChainId as useEthereumChainId } from "wagmi";
 import { BridgeChains } from "../../common/types";
+import { frenlyAddress, getExplorerLink } from "../../common/utils";
+import { CopiedAddressIcon, CopyAddressIcon, DisconnectIcon, Starknet } from "../Icons";
+import { CustomAvatar } from "./EthereumProviders";
 
 export const ConnectStarknet = ({ ...props }) => {
   const { connect, connectors } = useConnect();
   const { disconnect } = useDisconnect();
 
   const { account, address } = useAccount();
+
+  //
+  // EFFECT : account change --> disconnect / reconnect
+  //
+
+  useEffect(() => {
+    const init = async () => {
+      const wallets = await getStarknet().getAvailableWallets();
+      //
+      for (let wallet of wallets) {
+        wallet?.on("accountsChanged", () => {
+          disconnect();
+          connect()
+        });
+      }
+    };
+    init();
+  }, [account, address]);
 
   const {
     // isLoading,

@@ -1,13 +1,11 @@
 import { Flex, HStack } from "@chakra-ui/react";
-
+import { Link } from "react-router-dom";
 import { useChainId as useEthereumChainId } from "wagmi";
-
+import { ValidChainId } from "../../common/types";
+import { Faucet } from "../bridge/Faucet";
 import { ChainSelectorEthereum, ConnectEthereum } from "../web3/ConnectEthereum";
 import { ConnectStarknet } from "../web3/ConnectStarknet";
-
 import Logo from "./Logo";
-import { Faucet } from "../bridge/Faucet";
-import { ValidChainId } from "../../common/types";
 
 const Topbar = ({ isMobile }: { isMobile: boolean }) => {
   const ethereumChainId = useEthereumChainId() as ValidChainId;
@@ -25,10 +23,11 @@ const Topbar = ({ isMobile }: { isMobile: boolean }) => {
         </HStack>
         {!isMobile && (
           <HStack>
-            {/* <HStack mr="6">
-            <Link>FAQ</Link>
-          </HStack> */}
             <HStack>
+              <HStack gap={6} mr={9}  >
+              <Link to="/terms">TERMS</Link>
+              <Link to="/faq">FAQ</Link>
+              </HStack>
               <ConnectEthereum />
               <ConnectStarknet />
             </HStack>

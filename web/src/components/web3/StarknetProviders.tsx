@@ -13,7 +13,6 @@ export function StarknetProviders({ children }: { children: React.ReactNode }) {
     //order: "random"
   });
 
-
   // TO USE CUSTOM PROVIDER :
   // provider={jsonRpcProvider({
   //   rpc: (chain: Chain) => {
@@ -29,7 +28,7 @@ export function StarknetProviders({ children }: { children: React.ReactNode }) {
       autoConnect={true}
       chains={[/*devnet,*/ goerli, /*sepolia, */ mainnet]} // seems provider doesnt update when changing chain
       //chains={[/*devnet,*/ goerli, /*sepolia, */ mainnet]} // seems provider doesnt update when changing chain
-     provider={publicProvider()}
+      provider={publicProvider()}
       connectors={connectors}
       explorer={voyager}
     >
