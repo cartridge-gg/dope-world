@@ -14,13 +14,13 @@ import "./BaseScript.sol";
 */
 contract Deposit is BaseScript {
     address _token;
-    address _starknetPaperBridge;
+    address payable _starknetPaperBridge;
 
     function setUp() public {
         string memory json = vm.readFile('./logs/local.json');
 
         _token = abi.decode(vm.parseJson(json,'.Token'), (address));
-        _starknetPaperBridge = abi.decode(vm.parseJson(json,'.StarknetPaperBridge'), (address));
+        _starknetPaperBridge = abi.decode(vm.parseJson(json,'.StarknetPaperBridge_proxy'), (address));
     }
 
     function run() public{
@@ -46,7 +46,7 @@ contract Deposit is BaseScript {
 
 contract Withdraw is BaseScript {
     address _token;
-    address _starknetPaperBridge;
+    address payable _starknetPaperBridge;
 
     function setUp() public {
         string memory json = vm.readFile('./logs/local.json');
@@ -90,8 +90,6 @@ contract GetBalance is BaseScript {
         vm.stopBroadcast();
     }
 }
-
-
 
 contract MintToken is BaseScript {
     address _token;

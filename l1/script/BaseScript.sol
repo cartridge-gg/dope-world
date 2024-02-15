@@ -14,6 +14,7 @@ contract BaseScript is Script {
         address STARKNET_ADDRESS;
         uint256 L2_BRIDGE_ADDRESS;
         address TOKEN_ADDRESS;
+        address PROXY_ADDRESS;
     }
 
     Env public env;
@@ -37,6 +38,8 @@ contract BaseScript is Script {
         env.STARKNET_ADDRESS = vm.envAddress("STARKNET_ADDRESS");
         env.L2_BRIDGE_ADDRESS = vm.envUint("L2_BRIDGE_ADDRESS");
         env.TOKEN_ADDRESS = vm.envAddress("TOKEN_ADDRESS");
+
+        env.PROXY_ADDRESS = vm.envAddress("PROXY_ADDRESS");
 
         console.log("ENV :", env.ENV);
         console.log("ETH_RPC_URL :", env.ETH_RPC_URL);

@@ -2,6 +2,8 @@
 
 pragma solidity ^0.8.0;
 
+import "./UUPSOwnableProxied.sol";
+
 interface IERC20Like {
     function transfer(address to, uint256 amount) external returns (bool);
 
@@ -35,15 +37,15 @@ interface IStarknetCore {
     ) external returns (bytes32);
 }
 
-contract StarknetPaperBridge {
+contract StarknetPaperBridge is UUPSOwnableProxied {
     /// @notice The Starknet Core contract address on L1
-    address public immutable starknet;
+    address public starknet;
 
     /// @notice The $PAPER ERC20 contract address on L1
-    address public immutable l1Token;
+    address public l1Token;
 
     /// @notice The L2 address of the $PAPER bridge, the counterpart to this contract
-    uint256 public immutable l2Bridge;
+    uint256 public l2Bridge;
 
     event LogDeposit(
         address indexed l1Sender,
@@ -72,8 +74,37 @@ contract StarknetPaperBridge {
         return (low, high);
     }
 
-    constructor(address _starknet, address _l1Token, uint256 _l2Bridge) {
+    // Only for compilation purposes, as the storage
+    // of this contract is never used.
+    constructor(address _unused) Ownable(_unused) {}
+
+    /**
+       @notice Initializes the implementation, only callable once.
+
+       @param data Data to init the implementation.
+
+       @dev The input parameters are the following:
+       (address owner, address starknetMessaging, address l1Token, uint256 l2Bridge).
+    */
+    function initialize(
+        bytes calldata data
+    )
+        public
+        onlyInit
+    {
+        (
+            address owner,
+            address _starknet,
+            address _l1Token,
+            uint256 _l2Bridge
+        ) = abi.decode(
+            data,
+            (address, address, address, uint256)
+        );
+
         require(_l2Bridge < CAIRO_PRIME, "Invalid L2 bridge address");
+
+        _transferOwnership(owner);
 
         starknet = _starknet;
         l1Token = _l1Token;

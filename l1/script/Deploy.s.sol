@@ -3,6 +3,7 @@ pragma solidity ^0.8.0;
 
 import "forge-std/Script.sol";
 import "@create3-factory/CREATE3Factory.sol";
+import "@openzeppelin/contracts/proxy/ERC1967/ERC1967Proxy.sol";
 
 import "../src/StarknetMessagingLocal.sol";
 import "../src/Token.sol";
@@ -23,10 +24,6 @@ contract Deploy is BaseScript {
     function setUp() public {}
 
     function run() public {
-        CREATE3Factory factory = CREATE3Factory(
-            this.getEnv().CREATE3_FACTORY_ADDRESS
-        );
-
         string memory json = "";
 
         vm.startBroadcast(this.getEnv().ACCOUNT_PRIVATE_KEY);
@@ -52,18 +49,30 @@ contract Deploy is BaseScript {
         }
         vm.serializeString(json, "Token", vm.toString(tokenAddress));
 
-        address starknetPaperBridge = factory.deploy(
-            BRIDGE_SALT,
-            abi.encodePacked(
-                type(StarknetPaperBridge).creationCode,
-                abi.encode(
-                    starknetAddress,
-                    tokenAddress,
-                    this.getEnv().L2_BRIDGE_ADDRESS
-                )
+        address implAddress = address(new StarknetPaperBridge(this.getEnv().ACCOUNT_ADDRESS));
+
+        bytes memory dataInit = abi.encodeWithSelector(
+            StarknetPaperBridge.initialize.selector,
+            abi.encode(
+                this.getEnv().ACCOUNT_ADDRESS,
+                starknetAddress,
+                tokenAddress,
+                this.getEnv().L2_BRIDGE_ADDRESS
             )
         );
-        vm.serializeString(json, "StarknetPaperBridge", vm.toString(starknetPaperBridge));
+
+        // If proxy is at address 0, a new proxy is deployed with
+        // initial implementation.
+        // Otherwise, only the impl is deployed and updated in the proxy.
+        address proxyAddress = this.getEnv().PROXY_ADDRESS;
+        if (proxyAddress == address(0x0)) {
+            proxyAddress = address(new ERC1967Proxy(implAddress, dataInit));
+        } else {
+            StarknetPaperBridge(payable(proxyAddress)).upgradeToAndCall(implAddress, dataInit);
+        }
+
+        vm.serializeString(json, "StarknetPaperBridge_proxy", vm.toString(proxyAddress));
+        vm.serializeString(json, "StarknetPaperBridge_impl", vm.toString(implAddress));
 
         vm.stopBroadcast();
 
