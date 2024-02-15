@@ -1,14 +1,14 @@
 import {
-  Button,
-  Checkbox,
-  HStack,
-  Link,
-  Modal,
-  ModalBody,
-  ModalContent,
-  ModalOverlay,
-  Text,
-  VStack,
+    Button,
+    Checkbox,
+    HStack,
+    Link,
+    Modal,
+    ModalBody,
+    ModalContent,
+    ModalOverlay,
+    Text,
+    VStack,
 } from "@chakra-ui/react";
 import { UseAccountResult } from "@starknet-react/core";
 import { useEffect, useState } from "react";
@@ -57,7 +57,7 @@ export const BridgeConfirmModal = ({
   return (
     <Modal motionPreset="slideInBottom" isCentered isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
-      <ModalContent bg="bg.dark" p={6} minW="580px" minH="480px" top="-20px">
+      <ModalContent bg="bg.dark" p={6} minW="580px" minH="480px" top="40px">
         <ModalBody p={0} px={6}>
           <VStack w="full" gap={4}>
             <Text textAlign="center" fontWeight={"bold"} fontSize="20px">

@@ -1,20 +1,20 @@
 import {
-  Text,
-  VStack,
-  HStack,
-  Link,
-  Heading,
-  Button,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalBody,
+    Button,
+    HStack,
+    Heading,
+    Link,
+    Modal,
+    ModalBody,
+    ModalContent,
+    ModalOverlay,
+    Text,
+    VStack,
 } from "@chakra-ui/react";
-import config from "../../config";
 import { BridgeChains } from "../../common/types";
-import { Ethereum, Starknet } from "../Icons";
 import { getExplorerLink } from "../../common/utils";
+import config from "../../config";
 import useProviders from "../../hooks/useProviders";
+import { Ethereum, Starknet } from "../Icons";
 
 export const BridgeDetails = ({
   isOpen,
@@ -36,7 +36,7 @@ export const BridgeDetails = ({
   return (
     <Modal motionPreset="slideInBottom" isCentered isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
-      <ModalContent bg="bg.dark" p={6} minW="580px" minH="480px" top="-20px">
+      <ModalContent bg="bg.dark" p={6} minW="580px" minH="480px" top="40px">
         <ModalBody p={0}>
           <VStack w="full" display="flex" direction="column" gap={6} justifyContent="space-between">
             <Heading>Bridge details</Heading>

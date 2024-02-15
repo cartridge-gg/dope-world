@@ -45,7 +45,7 @@ export const BridgeFaq = ({ isOpen, onClose }: { isOpen: boolean; onClose: VoidF
   return (
     <Modal motionPreset="slideInBottom" isCentered isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
-      <ModalContent bg="bg.dark" p={6} minW="580px" minH="480px" top="-20px">
+      <ModalContent bg="bg.dark" p={6} minW="580px" minH="480px" top="40px">
         <ModalBody display="flex" p={0}>
           <VStack w="full" flex="1" display="flex" direction="column" gap={6} justifyContent="space-between">
             <VStack w="full">

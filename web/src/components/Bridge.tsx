@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 
 import { Box, Button, Card, CardBody, HStack, Heading, Spinner, VStack } from "@chakra-ui/react";
 
-
 import {
   useContractRead as useStarknetContractRead,
   useContractWrite as useStarknetContractWrite,
@@ -16,7 +15,7 @@ import config from "../config";
 import { getChainById } from "./web3/EthereumProviders";
 import { getStarknetChainIdFromEthereumChain } from "./web3/StarknetProviders";
 
-import { BridgeChains, BridgeDirection, BridgeSide } from "../common/types";
+import { BridgeActions, BridgeChains, BridgeDirection, BridgeSide } from "../common/types";
 import { getEthereumBridgeAddress, getStarknetBridgeAddress, sanitizeAmount } from "../common/utils";
 import { BridgeAlert } from "./bridge/BridgeAlert";
 import { BridgeConfirmModal } from "./bridge/BridgeConfirm";
@@ -357,7 +356,7 @@ const Bridge = () => {
     refetchEthereumTokenAllowance,
     refetchEthereumTokenBalance,
     refetchStarknetTokenBalance,
-   // setActiveStep,
+    // setActiveStep,
     starknetBridgeWithdrawData,
   ]);
 
@@ -555,7 +554,7 @@ const Bridge = () => {
 
         {(isLoadingEthereumApprove || isErrorEthereumApprove || ethereumApproveData?.hash) && (
           <TransactionCard
-            title="Approve Ethereum Bridge"
+            action={BridgeActions.ApproveEthereumBridge}
             fromChain={BridgeChains.Ethereum}
             amount={tokenAmount}
             setAmount={setTokenAmount}
@@ -566,12 +565,13 @@ const Bridge = () => {
             error={ethereumApproveError}
             reset={resetEthereumApprove}
             refreshEvents={() => {}}
+            onClose={()=> setIsBridgeConfirmModalOpen(true)}
           />
         )}
 
         {(isLoadingEthereumBridgeDeposit || isErrorEthereumBridgeDeposit || ethereumBridgeDepositData?.hash) && (
           <TransactionCard
-            title="Bridge to Starknet"
+            action={BridgeActions.BridgeToStarknet}
             fromChain={BridgeChains.Ethereum}
             amount={tokenAmount}
             setAmount={setTokenAmount}
@@ -582,12 +582,13 @@ const Bridge = () => {
             error={ethereumBridgeDepositError}
             reset={resetEthereumBridgeDeposit}
             refreshEvents={refreshEvents}
+            onClose={() => {}}
           />
         )}
 
         {(isLoadingEthereumBridgeWithdraw || isErrorEthereumBridgeWithdraw || ethereumBridgeWithdrawData?.hash) && (
           <TransactionCard
-            title="Withdraw from Ethereum Bridge"
+            action={BridgeActions.WithdrawFromEthereumBridge}
             fromChain={BridgeChains.Ethereum}
             amount={tokenAmount}
             setAmount={setTokenAmount}
@@ -598,6 +599,7 @@ const Bridge = () => {
             error={ethereumBridgeWithdrawError}
             reset={resetEthereumBridgeWithdraw}
             refreshEvents={refreshEvents}
+            onClose={() => {}}
           />
         )}
 
@@ -605,7 +607,7 @@ const Bridge = () => {
           starknetBridgeWithdrawData?.transaction_hash ||
           isPendingStarknetBridgeWithdraw) && (
           <TransactionCard
-            title="Bridge to Ethereum"
+            action={BridgeActions.BridgeToEthereum}
             fromChain={BridgeChains.Starknet}
             amount={tokenAmount}
             setAmount={setTokenAmount}
@@ -616,6 +618,7 @@ const Bridge = () => {
             error={starknetBridgeWithdrawError}
             reset={resetStarknetBridgeWithdraw}
             refreshEvents={refreshEvents}
+            onClose={() => {}}
           />
         )}
 
@@ -641,7 +644,7 @@ const Bridge = () => {
 
         <BridgeFaq onClose={() => setIsBridgeFaqOpen(false)} isOpen={isBridgeFaqOpen} />
 
-        {/* <BridgeStepper direction={direction} activeStep={activeStep}></BridgeStepper> */}
+        {/* <BridgeStepper direction={direction} activeStep={0}></BridgeStepper> */}
 
         <BridgeConfirmModal
           direction={direction}
