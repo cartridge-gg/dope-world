@@ -53,7 +53,7 @@ export const BridgeFaq = ({ isOpen, onClose }: { isOpen: boolean; onClose: VoidF
               <Accordion w="full" allowToggle>
                 {faq.map((i, idx) => {
                   return (
-                    <AccordionItem key={idx}>
+                    <AccordionItem key={idx} borderTop="solid 0px" borderBottom="solid 2px" borderColor="border.default">
                       <AccordionButton py={3}>
                         <Box as="span" flex="1" textAlign="left">
                           {i.question}

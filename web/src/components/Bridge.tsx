@@ -426,7 +426,9 @@ const Bridge = () => {
           <HStack>
             <HStack color="text.primary" bgColor="bg.light" gap={3} p={2} px={4} borderRadius={8}>
               <PaperIcon width="20px" height="20px" />
-              <Heading fontSize="24px"> {config.branding.tokenName}</Heading>
+              <Heading fontFamily="ibmplex" fontSize="24px" fontWeight="400" textTransform="capitalize">
+                {config.branding.tokenName.toLowerCase()}
+              </Heading>
             </HStack>
             <Button
               onClick={() => setIsBridgeDetailsOpen(!isBridgeDetailsOpen)}
@@ -565,7 +567,7 @@ const Bridge = () => {
             error={ethereumApproveError}
             reset={resetEthereumApprove}
             refreshEvents={() => {}}
-            onClose={()=> setIsBridgeConfirmModalOpen(true)}
+            onClose={() => setIsBridgeConfirmModalOpen(true)}
           />
         )}
 

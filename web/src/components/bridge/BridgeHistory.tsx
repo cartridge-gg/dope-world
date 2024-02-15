@@ -1,20 +1,20 @@
 import {
-    Box,
-    Button,
-    HStack,
-    Link,
-    Modal,
-    ModalBody,
-    ModalContent,
-    ModalOverlay,
-    Spinner,
-    Tab,
-    TabList,
-    TabPanel,
-    TabPanels,
-    Tabs,
-    Text,
-    VStack,
+  Box,
+  Button,
+  HStack,
+  Link,
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalOverlay,
+  Spinner,
+  Tab,
+  TabList,
+  TabPanel,
+  TabPanels,
+  Tabs,
+  Text,
+  VStack,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 
@@ -22,7 +22,7 @@ import { BridgeChains, BridgeDirection } from "../../common/types";
 import { frenlyAddress, getExplorerLink } from "../../common/utils";
 import config from "../../config";
 import useProviders from "../../hooks/useProviders";
-import { ClockIcon, Ethereum, Starknet } from "../Icons";
+import { ClockIcon, Ethereum, NoRecentTxIcon, Starknet } from "../Icons";
 
 import * as timeago from "timeago.js";
 import { HistoryEvent } from "../../hooks/useHistory";
@@ -80,10 +80,22 @@ export const BridgeHistory = ({
                 </TabList>
                 <VStack w="full" maxH="350px" h="350px" overflowY="auto" fontSize="12px">
                   <TabPanels>
-                    <TabPanel display="grid" gap={3} p={2} alignItems="flex-start">
+                    <TabPanel
+                      display="grid"
+                      gap={3}
+                      p={2}
+                      alignItems={ethereumEvents.length === 0 ? "center" : "flex-start"}
+                    >
                       {!isLoading ? (
                         <>
-                          {ethereumEvents.length === 0 && <Text textAlign="center">No recent transactions</Text>}
+                          {ethereumEvents.length === 0 && (
+                            <VStack w="full" alignItems="center">
+                              <NoRecentTxIcon />
+                              <Text color="text.secondary" fontSize="16px" textAlign="center">
+                                No recent transactions
+                              </Text>
+                            </VStack>
+                          )}
                           {ethereumEvents.map((e, idx) => {
                             return (
                               <EventItem
@@ -101,10 +113,22 @@ export const BridgeHistory = ({
                         <Spinner colorScheme="cryellow" alignSelf="center" justifySelf="center" />
                       )}
                     </TabPanel>
-                    <TabPanel display="grid" gap={3} p={2} alignItems="flex-start">
+                    <TabPanel
+                      display="grid"
+                      gap={3}
+                      p={2}
+                      alignItems={starknetEvents.length === 0 ? "center" : "flex-start"}
+                    >
                       {!isLoading ? (
                         <>
-                          {starknetEvents.length === 0 && <Text textAlign="center">No recent transactions</Text>}
+                          {starknetEvents.length === 0 && (
+                            <VStack w="full" alignItems="center">
+                              <NoRecentTxIcon />
+                              <Text color="text.secondary" fontSize="16px" textAlign="center">
+                                No recent transactions
+                              </Text>
+                            </VStack>
+                          )}
                           {starknetEvents.map((e, idx) => {
                             return (
                               <EventItem
