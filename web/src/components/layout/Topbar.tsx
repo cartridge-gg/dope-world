@@ -1,5 +1,5 @@
-import { Flex, HStack } from "@chakra-ui/react";
-import { Link } from "react-router-dom";
+import { Button, Flex, HStack } from "@chakra-ui/react";
+import { NavLink } from "react-router-dom";
 import { useChainId as useEthereumChainId } from "wagmi";
 import { ValidChainId } from "../../common/types";
 import { Faucet } from "../bridge/Faucet";
@@ -24,9 +24,25 @@ const Topbar = ({ isMobile }: { isMobile: boolean }) => {
         {!isMobile && (
           <HStack>
             <HStack>
-              <HStack gap={6} mr={9}  >
-              <Link to="/terms">TERMS</Link>
-              <Link to="/faq">FAQ</Link>
+              <HStack mr={9}>
+                <NavLink to="/terms">
+                  {({ isActive }) => {
+                    return (
+                      <Button variant="secondary" pl={3} pr={3} opacity={isActive ? 0.5 : 1}>
+                        TERMS
+                      </Button>
+                    );
+                  }}
+                </NavLink>
+                <NavLink to="/faq">
+                  {({ isActive }) => {
+                    return (
+                      <Button variant="secondary" pl={3} pr={3} opacity={isActive ? 0.5 : 1}>
+                        FAQ
+                      </Button>
+                    );
+                  }}
+                </NavLink>
               </HStack>
               <ConnectEthereum />
               <ConnectStarknet />

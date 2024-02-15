@@ -32,7 +32,7 @@ import { BridgeActions, BridgeChains, ValidChainId } from "../../common/types";
 import { formatEtherBalance, frenlyAddress, getExplorerLink } from "../../common/utils";
 import config from "../../config";
 import { colors } from "../../theme/colors";
-import { AlertIcon } from "../Icons";
+import { AlertIcon, CheckedIcon } from "../Icons";
 import { ArrowUp } from "./BridgeStepper";
 
 export const transactionSteps = [
@@ -65,7 +65,12 @@ export const starknetToEthereumSteps = [
   },
   {
     title: "Withdraw on Ethereum",
-    description: "",
+    description: (
+      <VStack gap={0} w="full">
+        <Text>Transaction Confirmed!</Text>
+        <Text color="text.primary">{`Return to Paper Bridge in ~4hrs to claim your ${config.branding.tokenName}`}</Text>
+      </VStack>
+    ),
   },
 ];
 
@@ -89,7 +94,12 @@ export const ethereumToStarknetSteps = [
   },
   {
     title: "Receive on Starknet",
-    description: "",
+    description: (
+      <VStack gap={0} w="full">
+        <Text>Transaction Confirmed!</Text>
+        <Text color="text.primary">{`You will receive your ${config.branding.tokenName} in a few minutes!`}</Text>
+      </VStack>
+    ),
   },
 ];
 
@@ -178,7 +188,7 @@ export const TransactionCard = ({
     // bridging steps
     if (action === BridgeActions.BridgeToEthereum || action === BridgeActions.BridgeToStarknet) {
       if (isSuccess && (isSuccessTxEthereum || isSuccessTxStarknet)) {
-        setActiveStep(1);
+        setActiveStep(2);
         setTimeout(() => refreshEvents(), 5_000);
       }
     }
@@ -227,9 +237,18 @@ export const TransactionCard = ({
                   >
                     <StepIndicator>
                       <StepStatus
-                        complete={<StepIcon color={index <= activeStep ? "green.default" : "text.secondary"} />}
+                        complete={
+                          index <= activeStep ? <CheckedIcon color="green" /> : <StepIcon color="text.secondary" />
+                        }
                         incomplete={<StepNumber />}
-                        active={<StepNumber />}
+                        active={
+                          (action === BridgeActions.BridgeToEthereum || action === BridgeActions.BridgeToStarknet) &&
+                          index === 2 ? (
+                            <></>
+                          ) : (
+                            <CheckedIcon color="green" />
+                          )
+                        }
                       />
                     </StepIndicator>
 

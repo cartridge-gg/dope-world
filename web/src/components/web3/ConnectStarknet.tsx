@@ -13,8 +13,7 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import { Connector, useAccount, useBalance, useConnect, useDisconnect } from "@starknet-react/core";
-import { getStarknet } from "get-starknet-core";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { AccountInterface } from "starknet";
 import { useChainId as useEthereumChainId } from "wagmi";
 import { BridgeChains } from "../../common/types";
@@ -29,22 +28,22 @@ export const ConnectStarknet = ({ ...props }) => {
   const { account, address } = useAccount();
 
   //
-  // EFFECT : account change --> disconnect / reconnect
+  // EFFECT : account change --> disconnect / reconnect, not working well
   //
 
-  useEffect(() => {
-    const init = async () => {
-      const wallets = await getStarknet().getAvailableWallets();
-      //
-      for (let wallet of wallets) {
-        wallet?.on("accountsChanged", () => {
-          disconnect();
-          connect()
-        });
-      }
-    };
-    init();
-  }, [account, address]);
+  // useEffect(() => {
+  //   const init = async () => {
+  //     const wallets = await getStarknet().getAvailableWallets();
+  //     //
+  //     for (let wallet of wallets) {
+  //       wallet?.on("accountsChanged", () => {
+  //         disconnect();
+  //         connect()
+  //       });
+  //     }
+  //   };
+  //   init();
+  // }, [account, address]);
 
   const {
     // isLoading,

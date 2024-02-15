@@ -1,14 +1,14 @@
 import {
-    Button,
-    Checkbox,
-    HStack,
-    Link,
-    Modal,
-    ModalBody,
-    ModalContent,
-    ModalOverlay,
-    Text,
-    VStack,
+  Button,
+  Checkbox,
+  HStack,
+  Link,
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalOverlay,
+  Text,
+  VStack,
 } from "@chakra-ui/react";
 import { UseAccountResult } from "@starknet-react/core";
 import { useEffect, useState } from "react";
@@ -73,7 +73,7 @@ export const BridgeConfirmModal = ({
             >
               <AlertIcon />
               <Text>
-                Please review this informations carefully. Bridging to wrong address could result in a permanent loss of
+                Please review this information carefully. Bridging to the wrong address could result in a permanent loss of
                 funds!
               </Text>
             </HStack>
@@ -116,7 +116,7 @@ export const BridgeConfirmModal = ({
 
             <VStack w="full" p={3} borderRadius={8} bg="bg.light" alignItems="flex-start">
               <Checkbox colorScheme="cryellow" checked={confirmed} onChange={() => setConfirmed(!confirmed)}>
-                <Text fontSize="14px">I reviewed the above informations and it's correct.</Text>
+                <Text fontSize="14px">I reviewed the above and it's correct.</Text>
               </Checkbox>
             </VStack>
 

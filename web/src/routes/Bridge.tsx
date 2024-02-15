@@ -4,7 +4,7 @@ import { Box, Button, Card, CardBody, HStack, Heading, Spinner, VStack } from "@
 
 import {
   useContractRead as useStarknetContractRead,
-  useContractWrite as useStarknetContractWrite
+  useContractWrite as useStarknetContractWrite,
 } from "@starknet-react/core";
 import { useContractRead as useEthereumContractRead, useContractWrite as useEthereumContractWrite } from "wagmi";
 import { Ethereum, HistoryIcon, InformationIcon, PaperIcon, Starknet, Swap } from "../components/Icons";
@@ -388,7 +388,7 @@ const Bridge = () => {
               position="relative"
             >
               <HStack position="absolute" right="40px" top="-10px">
-                {actionCount > 0 && <Pill>{actionCount + pendingCount}</Pill>}
+                {actionCount + pendingCount > 0 && <Pill>{actionCount + pendingCount}</Pill>}
               </HStack>
 
               {isLoadingHistory ? <Spinner colorScheme="cryellow" /> : <HistoryIcon width="16px" height="16px" />}

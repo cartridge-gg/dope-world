@@ -338,3 +338,14 @@ export const ChevLeft = ({ width = "20px", height = "20px", ...props }) => {
     </svg>
   );
 };
+
+export const CheckedIcon = ({ width = "20px", height = "20px", ...props }) => {
+  return (
+    <svg width={width} height={height} {...props} viewBox="0 0 20 20" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+      <path
+        d="M6.96952 15.455L3.33301 11.8184L4.5449 10.6065L6.96952 13.0312L15.4544 4.54541L16.6663 5.75812L6.96952 15.455Z"
+        fill="currentColor"
+      />
+    </svg>
+  );
+};
