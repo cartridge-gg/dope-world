@@ -11,7 +11,7 @@ const Footer = () => {
         <Link href="https://github.com/cartridge-gg/dope-world" target="_blank" _hover={{ color: "cryellow.400" }}>
           <GithubIcon />
         </Link>
-        <Link href="https://discord.gg/dojoengine" target="_blank" _hover={{ color: "cryellow.400" }}>
+        <Link href="https://discord.gg/dopewars" target="_blank" _hover={{ color: "cryellow.400" }}>
           <DiscordIcon />
         </Link>
       </HStack>
