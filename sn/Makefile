@@ -1,4 +1,4 @@
-include .env.mainnet
+include .env.goerli
 
 export
 
@@ -11,6 +11,8 @@ endif
 PARAMS := --rpc-url ${RPC_URL} --account-address ${ACCOUNT_ADDRESS} ${ACCOUNTS_PARAMS} 
 
 export SOZO_PARAMS = $(PARAMS)
+
+export STARKLI_PARAMS= --rpc ${RPC_URL} --account ${ACCOUNT} --keystore ${KEYSTORE} --keystore-password ${KEYSTORE_PASS} --watch
 
 all: 
 	@echo "********************************************************************"
@@ -47,5 +49,10 @@ initialize:
 migrate_and_init: migrate initialize
 
 
+grant_ownership:
+	./scripts/grant_ownership.sh
+
+revoke_ownership:
+	./scripts/revoke_ownership.sh
 
 
