@@ -32,8 +32,8 @@ const bridge = {
         tokenAbi: l1Token.abi,
         address: {
             [localhost.id]: "0xA2a4A401C8C1D6eD1ec03504018F4A1988635031",
-            [goerli.id]: "0x9ab4C96dd119aD61D810F7Ce536128Cbf02e6DA1",
-            [mainnet.id]: "0x",
+            [goerli.id]: "0xAcCC941E06A2bCa8e6A588Ef79Caa76E18188285",
+            [mainnet.id]: "0x6B7d57E464E2121f2847aEAd1B26BF3409E9b599",
         }
 
     },
@@ -42,8 +42,8 @@ const bridge = {
         tokenAbi: paperToken.abi,
         address: {
             [localhost.id]: "0x2ff2f9994ba7e039f50190cb3b3dc538d9abf7201acbe5a6a7aff686dd40d89",
-            [goerli.id]: "0x2ff2f9994ba7e039f50190cb3b3dc538d9abf7201acbe5a6a7aff686dd40d89",
-            [mainnet.id]: "0x",
+            [goerli.id]: "0x19bc231d0b20ea77e02cf286c93320df980bab5818bd13386c84998cb3e8c64",
+            [mainnet.id]: "0x19bc231d0b20ea77e02cf286c93320df980bab5818bd13386c84998cb3e8c64",
         }
     }
 }
@@ -82,7 +82,7 @@ const config = {
         logo: "/mark-dark.svg"
     },
     rainbowkit: {
-        projectId: "YOUR_PROJECT_ID"
+        projectId: "aae981d5f608630b128805bc3961bf15"
     },
     //
     explorers,
@@ -91,8 +91,5 @@ const config = {
     chains,
 
 }
-
-
-
 
 export default config;

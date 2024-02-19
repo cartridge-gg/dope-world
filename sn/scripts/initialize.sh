@@ -5,7 +5,7 @@ pushd $(dirname "$0")/..
 sleep 1
 
 # export TX_SLEEP=200 # goerli ...
-export TX_SLEEP=1
+export TX_SLEEP=120
 export WORLD_ADDRESS=$(cat ./target/dev/manifest.json | jq -r '.world.address')
 
 export PAPER_TOKEN_ADDRESS=$(cat ./target/dev/manifest.json | jq -r '.contracts[] | select(.name == "dope_world::paper_token::paper_token" ).address')
@@ -36,12 +36,12 @@ DOJO_TOKEN_COMPONENTS=("ERC20MetadataModel" "ERC20BalanceModel" "ERC20AllowanceM
 DOJO_BRIDGE_COMPONENTS=("PaperBridgeModel")
 
 for component in ${DOJO_TOKEN_COMPONENTS[@]}; do
-    sozo auth writer $component $PAPER_TOKEN_ADDRESS --world $WORLD_ADDRESS $SOZO_PARAMS
+    sozo auth writer $component $PAPER_TOKEN_ADDRESS --world $WORLD_ADDRESS $SOZO_PARAMS --legacy --wait
     sleep $TX_SLEEP
 done
 
 for component in ${DOJO_BRIDGE_COMPONENTS[@]}; do
-    sozo auth writer $component $PAPER_BRIDGE_ADDRESS --world $WORLD_ADDRESS $SOZO_PARAMS
+    sozo auth writer $component $PAPER_BRIDGE_ADDRESS --world $WORLD_ADDRESS $SOZO_PARAMS --legacy --wait
     sleep $TX_SLEEP
 done
 
@@ -52,11 +52,10 @@ echo "Initialization..."
 # paper_token
 # fn initializer(ref self: ContractState, name: felt252, symbol: felt252, l2_bridge_address: ContractAddress)
 echo "Initialize token"
-sozo execute $PAPER_TOKEN_ADDRESS initializer -c $CAIRO_DOJO_TOKEN_NAME,$CAIRO_DOJO_TOKEN_SYMBOL,$PAPER_BRIDGE_ADDRESS $SOZO_PARAMS
+sozo execute $PAPER_TOKEN_ADDRESS initializer -c $CAIRO_DOJO_TOKEN_NAME,$CAIRO_DOJO_TOKEN_SYMBOL,$PAPER_BRIDGE_ADDRESS $SOZO_PARAMS --legacy --wait
 sleep $TX_SLEEP
 
 # paper_bridge
 # fn initializer(ref self: ContractState, l1_bridge: felt252, l2_token: ContractAddress)
 echo "Initialize bridge"
-sozo execute $PAPER_BRIDGE_ADDRESS initializer -c $L1_BRIDGE_ADDRESS,$PAPER_TOKEN_ADDRESS $SOZO_PARAMS
-sleep $TX_SLEEP
+sozo execute $PAPER_BRIDGE_ADDRESS initializer -c $L1_BRIDGE_ADDRESS,$PAPER_TOKEN_ADDRESS $SOZO_PARAMS --legacy --wait

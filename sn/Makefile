@@ -1,4 +1,4 @@
-include .env.local
+include .env.mainnet
 
 export
 
@@ -39,7 +39,7 @@ build:
 	sozo build
 
 migrate: build
-	sozo migrate ${PARAMS} --name ${WORLD_NAME} --wait
+	sozo migrate ${PARAMS} --name ${WORLD_NAME} --wait --legacy
 
 initialize:
 	./scripts/initialize.sh
