@@ -158,7 +158,7 @@ export const TransactionCard = ({
     isSuccess: isSuccessTxEthereum,
   } = useWaitForTransactionEthereum({
     hash: hash as Address,
-    enabled: fromChain === BridgeChains.Ethereum,
+    enabled: fromChain === BridgeChains.Ethereum && (hash ? true : false),
   });
 
   const {
@@ -169,7 +169,7 @@ export const TransactionCard = ({
     // isPending: isPendingTxStarknet,
   } = useWaitForTransactionStarknet({
     hash,
-    enabled: fromChain === BridgeChains.Starknet,
+    enabled: fromChain === BridgeChains.Starknet && (hash ? true : false),
     watch: true,
   });
 
