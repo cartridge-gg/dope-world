@@ -13,6 +13,7 @@ import { formatEther } from "viem";
 
 import { BridgeChains, BridgeSide } from "../../common/types";
 import { formatBalance } from "../../common/utils";
+import config from "../../config";
 
 type TokenProps = {
   bridgeSide: BridgeSide;
@@ -72,7 +73,7 @@ export const Token = ({
               </Text>
 
               <Text color={tokenBalance>0 ? "text.primary" : "text.secondary"} fontSize="11px" fontWeight="bold">
-                {isConnected ? formatBalance(tokenBalance || 0n) : "---"}
+                {isConnected ? `${formatBalance(tokenBalance || 0n)} ${config.branding.tokenName}` : "---"}
               </Text>
             </VStack>
           </HStack>
