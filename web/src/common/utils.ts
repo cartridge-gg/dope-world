@@ -16,7 +16,7 @@ export const frenlyAddress = (address: string) => {
 };
 
 export const sanitizeAmount = (amount: string) => {
-    return String(Number(amount) || 0)
+    return String(Number(amount).toFixed(8) || 0)
 }
 
 export const addLeadingZeroEth = (address: string) => {
