@@ -12,8 +12,7 @@ version = "0.1.0"
 
 [dependencies]
 dojo = { git = "https://github.com/dojoengine/dojo", tag = "v0.6.0-alpha.0" }
-# token = { git = "https://github.com/dojoengine/origami", tag = "v0.5.1" }
-token = { git = "https://github.com/notV4l/origami", rev = "2a0d43d" }
+token = { git = "https://github.com/dojoengine/origami", tag = "v0.6.0-alpha.0" }
 
 [scripts]
 katana_msg = "katana --messaging anvil.messaging.json --dev"

@@ -25,7 +25,7 @@ dependencies = [
 [[package]]
 name = "token"
 version = "0.0.0"
-source = "git+https://github.com/notV4l/origami?rev=2a0d43d#2a0d43d6ba5ab1af68e8b4aaffb35aee23fd5859"
+source = "git+https://github.com/dojoengine/origami?tag=v0.6.0-alpha.0#178cfe9257b356c37607fd06586661810a76a365"
 dependencies = [
  "dojo",
 ]
