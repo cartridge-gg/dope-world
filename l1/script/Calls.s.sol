@@ -77,7 +77,7 @@ contract GetBalance is BaseScript {
     address _token;
 
     function setUp() public {
-        string memory json = vm.readFile('./logs/local.json');
+        string memory json = vm.readFile('./logs/goerli.json');
         _token = abi.decode(vm.parseJson(json,'.Token'), (address));
     }
 

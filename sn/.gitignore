@@ -3,3 +3,5 @@ target
 
 .env
 .env.goerli
+.env.goerli2
+.env.mainnet

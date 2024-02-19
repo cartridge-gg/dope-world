@@ -1,8 +1,8 @@
-include .env.local
+include .env.mainnet
 
 export
 
-PARAMS := --broadcast --rpc-url ${ETH_RPC_URL} -v
+PARAMS := --rpc-url ${ETH_RPC_URL} -vvvv
 
 all: 
 	@echo "********************************************************************"
@@ -29,7 +29,7 @@ get_bridge_address:
 	forge script ./script/Deploy.s.sol:GetBridgeAddress ${PARAMS}
 
 deploy: 
-	forge script ./script/Deploy.s.sol:Deploy ${PARAMS}
+	forge script ./script/Deploy.s.sol:Deploy ${PARAMS} --broadcast
 
 deposit: 
 	forge script ./script/Calls.s.sol:Deposit ${PARAMS}

@@ -1,7 +1,7 @@
 # Dotenv file
 .env
 .env.goerli
-
+.env.mainnet
 
 # Compiler files
 cache/
