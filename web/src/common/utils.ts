@@ -33,7 +33,7 @@ export const formatBalance = (balance: bigint) => {
 export const formatEtherBalance = (etherBalance: number) => {
     return new Intl.NumberFormat('us-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(
         etherBalance,
-    ).replace('$US', '').replace('$', '').replaceAll(' ', '.')
+    ).replace('US', '').replace('$', '').replaceAll(' ', '.')
 }
 
 
