@@ -19,14 +19,15 @@ struct PaperBridgeModel {
 trait DojoBridgeTrait<T> {
     fn initializer(ref self: T, l1_bridge: felt252, l2_token: ContractAddress);
     fn initiate_withdrawal(ref self: T, l1_recipient: felt252, amount: u256);
-    fn get_l1_bridge(self: @T) -> felt252 ;
-    fn get_token(self: @T) -> ContractAddress ;
+    fn get_l1_bridge(self: @T) -> felt252;
+    fn get_token(self: @T) -> ContractAddress;
 }
 
 
 #[dojo::contract]
 mod paper_bridge {
     use super::PaperBridgeModel;
+    use starknet::SyscallResultTrait;
     use starknet::ContractAddress;
     use starknet::{get_contract_address, get_caller_address};
 
@@ -144,7 +145,8 @@ mod paper_bridge {
             ];
 
             // send msg to L1
-            starknet::syscalls::send_message_to_l1_syscall(data.l1_bridge, message.span());
+            starknet::syscalls::send_message_to_l1_syscall(data.l1_bridge, message.span())
+                .unwrap_syscall();
 
             let event = WithdrawalInitiated { sender: caller, recipient: l1_recipient, amount };
             self._emit_event(event);

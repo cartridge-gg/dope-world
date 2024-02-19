@@ -71,7 +71,7 @@ export const Token = ({
                 AVAILABLE
               </Text>
 
-              <Text color="text.primary" fontSize="11px" fontWeight="bold">
+              <Text color={tokenBalance>0 ? "text.primary" : "text.secondary"} fontSize="11px" fontWeight="bold">
                 {isConnected ? formatBalance(tokenBalance || 0n) : "---"}
               </Text>
             </VStack>

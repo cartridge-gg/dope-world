@@ -1,7 +1,7 @@
 import { Box, Step, StepIcon, StepIndicator, StepNumber, StepStatus, StepTitle, Stepper } from "@chakra-ui/react";
 
-import config from "../../config";
 import { BridgeDirection } from "../../common/types";
+import config from "../../config";
 import { colors } from "../../theme/colors";
 
 export const stepsEthereum = [
@@ -24,7 +24,6 @@ export const stepsStarknet = [
 
 export const BridgeStepper = ({ direction, activeStep }: { direction: BridgeDirection; activeStep: number }) => {
   const steps = direction === BridgeDirection.FromEthereumToStarknet ? stepsEthereum : stepsStarknet;
-
   const timeEst = direction === BridgeDirection.FromEthereumToStarknet ? "" : "~4 hrs";
 
   return (

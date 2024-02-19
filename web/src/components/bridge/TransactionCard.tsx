@@ -28,14 +28,14 @@ import {
   useChainId as useEthereumChainId,
   useWaitForTransaction as useWaitForTransactionEthereum,
 } from "wagmi";
-import { BridgeChains, ValidChainId } from "../../common/types";
+import { BridgeActions, BridgeChains, ValidChainId } from "../../common/types";
 import { formatEtherBalance, frenlyAddress, getExplorerLink } from "../../common/utils";
 import config from "../../config";
 import { colors } from "../../theme/colors";
-import { AlertIcon } from "../Icons";
+import { AlertIcon, CheckedIcon } from "../Icons";
 import { ArrowUp } from "./BridgeStepper";
 
-export const stepsEthereum = [
+export const transactionSteps = [
   { title: "Initiating", description: <Text>Initiating transaction</Text> },
   {
     title: "Waiting for confirmation",
@@ -44,21 +44,12 @@ export const stepsEthereum = [
   { title: "Transaction Confirmed", description: <Text>Transaction Confirmed!</Text> },
 ];
 
-export const stepsStarknet = [
+export const starknetToEthereumSteps = [
   {
     title: "Initiating",
     description: (
       <VStack gap={0} w="full">
         <Text>Initiating transaction</Text>
-        <Text color="text.primary">{`Return to Paper Bridge in ~4hrs to claim your ${config.branding.tokenName}`}</Text>
-      </VStack>
-    ),
-  },
-  {
-    title: "Waiting for confirmation",
-    description: (
-      <VStack gap={0} w="full">
-        <Text>Transaction initiated, waiting for confirmation</Text>
         <Text color="text.primary">{`Return to Paper Bridge in ~4hrs to claim your ${config.branding.tokenName}`}</Text>
       </VStack>
     ),
@@ -72,10 +63,62 @@ export const stepsStarknet = [
       </VStack>
     ),
   },
+  {
+    title: "Withdraw on Ethereum",
+    description: (
+      <VStack gap={0} w="full">
+        <Text>Transaction Confirmed!</Text>
+        <Text color="text.primary">{`Return to Paper Bridge in ~4hrs to claim your ${config.branding.tokenName}`}</Text>
+      </VStack>
+    ),
+  },
 ];
 
+export const ethereumToStarknetSteps = [
+  {
+    title: "Initiating",
+    description: (
+      <VStack gap={0} w="full">
+        <Text>Initiating transaction</Text>
+      </VStack>
+    ),
+  },
+  {
+    title: "Transaction Confirmed",
+    description: (
+      <VStack gap={0} w="full">
+        <Text>Transaction Confirmed!</Text>
+        <Text color="text.primary">{`You will receive your ${config.branding.tokenName} in a few minutes!`}</Text>
+      </VStack>
+    ),
+  },
+  {
+    title: "Receive on Starknet",
+    description: (
+      <VStack gap={0} w="full">
+        <Text>Transaction Confirmed!</Text>
+        <Text color="text.primary">{`You will receive your ${config.branding.tokenName} in a few minutes!`}</Text>
+      </VStack>
+    ),
+  },
+];
+
+const stepsByAction = {
+  [BridgeActions.ApproveEthereumBridge]: transactionSteps,
+  [BridgeActions.WithdrawFromEthereumBridge]: transactionSteps,
+  [BridgeActions.BridgeToEthereum]: starknetToEthereumSteps,
+  [BridgeActions.BridgeToStarknet]: ethereumToStarknetSteps,
+};
+
+const bridgingDuration = {
+  [BridgeActions.ApproveEthereumBridge]: undefined,
+  [BridgeActions.WithdrawFromEthereumBridge]: undefined,
+  [BridgeActions.BridgeToEthereum]: "~4h",
+  [BridgeActions.BridgeToStarknet]: "~5min",
+};
+
 type TransactionCardProps = {
-  title: string;
+  action: BridgeActions;
   fromChain: BridgeChains;
   amount: string;
   setAmount: Dispatch<SetStateAction<string>>;
@@ -86,10 +129,11 @@ type TransactionCardProps = {
   error: any;
   reset: VoidFunction;
   refreshEvents: VoidFunction;
+  onClose: VoidFunction;
 };
 
 export const TransactionCard = ({
-  title,
+  action,
   fromChain,
   amount,
   setAmount,
@@ -100,8 +144,9 @@ export const TransactionCard = ({
   error,
   reset,
   refreshEvents,
+  onClose,
 }: TransactionCardProps) => {
-  const steps = fromChain === BridgeChains.Ethereum ? stepsEthereum : stepsStarknet;
+  const steps = stepsByAction[action];
   const { activeStep, setActiveStep } = useSteps({ index: 0, count: steps.length });
 
   const ethereumChainId = useEthereumChainId() as ValidChainId;
@@ -129,31 +174,49 @@ export const TransactionCard = ({
   });
 
   useEffect(() => {
-    if (isSuccess && hash) {
-      setActiveStep(1);
+    // transaction steps
+    if (action === BridgeActions.ApproveEthereumBridge || action === BridgeActions.WithdrawFromEthereumBridge) {
+      if (isSuccess && hash) {
+        setActiveStep(1);
+      }
+      if (isSuccess && (isSuccessTxEthereum || isSuccessTxStarknet)) {
+        setActiveStep(2);
+        setTimeout(() => refreshEvents(), 5_000);
+      }
     }
-    if (isSuccess && (isSuccessTxEthereum || isSuccessTxStarknet)) {
-      setActiveStep(2);
-      setTimeout(() => refreshEvents(), 5_000);
+
+    // bridging steps
+    if (action === BridgeActions.BridgeToEthereum || action === BridgeActions.BridgeToStarknet) {
+      if (isSuccess && (isSuccessTxEthereum || isSuccessTxStarknet)) {
+        setActiveStep(2);
+        setTimeout(() => refreshEvents(), 5_000);
+      }
     }
   }, [isLoading, isError, isSuccess, isSuccessTxEthereum, isSuccessTxStarknet, hash, setActiveStep]);
 
-  const onClose = () => {
-    setAmount("");
+  const onCloseClick = () => {
+    if (action !== BridgeActions.ApproveEthereumBridge) {
+      setAmount("");
+    }
     reset();
+    if (isSuccess) {
+      onClose();
+    }
   };
 
   return (
     <Modal closeOnOverlayClick={false} motionPreset="slideInBottom" isCentered isOpen={true} onClose={onClose}>
       <ModalOverlay />
-      <ModalContent bg="bg.dark" p={6} minW="580px" minH="480px" top="-20px">
+      <ModalContent bg="bg.dark" p={6} minW="580px" minH="480px" top="40px">
         <ModalBody p={0} px={6}>
           <VStack w="full" gap={9}>
             <VStack w="full">
-              <Heading>{title}</Heading>
-              <Text color="text.secondary">
-                {formatEtherBalance(Number(amount))} {config.branding.tokenName}
-              </Text>
+              <Heading>{action}</Heading>
+              {Number(amount) > 0 && (
+                <Text color="text.secondary">
+                  {formatEtherBalance(Number(amount))} {config.branding.tokenName}
+                </Text>
+              )}
             </VStack>
 
             <Box position="relative">
@@ -174,9 +237,18 @@ export const TransactionCard = ({
                   >
                     <StepIndicator>
                       <StepStatus
-                        complete={<StepIcon color={index <= activeStep ? "green.default" : "text.secondary"} />}
+                        complete={
+                          index <= activeStep ? <CheckedIcon color="green" /> : <StepIcon color="text.secondary" />
+                        }
                         incomplete={<StepNumber />}
-                        active={<StepNumber />}
+                        active={
+                          (action === BridgeActions.BridgeToEthereum || action === BridgeActions.BridgeToStarknet) &&
+                          index === 2 ? (
+                            <></>
+                          ) : (
+                            <CheckedIcon color="green" />
+                          )
+                        }
                       />
                     </StepIndicator>
 
@@ -210,6 +282,22 @@ export const TransactionCard = ({
                 top="14px"
                 zIndex="0"
               ></Box>
+
+              {bridgingDuration[action] && (
+                <Box
+                  left="61%"
+                  position="absolute"
+                  border="solid 1px"
+                  borderColor="bg.light !important"
+                  bg="bg.light !important"
+                  top="4px"
+                  zIndex="1"
+                  borderRadius={12}
+                  px={2}
+                >
+                  {bridgingDuration[action]}
+                </Box>
+              )}
             </Box>
 
             <VStack w="full" gap={6}>
@@ -259,7 +347,7 @@ export const TransactionCard = ({
               {/* )} */}
             </VStack>
 
-            <Button onClick={onClose} mt={3}>
+            <Button onClick={onCloseClick} mt={3}>
               CLOSE
             </Button>
           </VStack>

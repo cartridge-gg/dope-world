@@ -95,14 +95,6 @@ mod paper_token {
         erc20_metadata_component::ERC20MetadataImpl<ContractState>;
 
     #[abi(embed_v0)]
-    impl ERC20SafeAllowanceImpl =
-        erc20_allowance_component::ERC20SafeAllowanceImpl<ContractState>;
-
-    #[abi(embed_v0)]
-    impl ERC20SafeAllowanceCamelImpl =
-        erc20_allowance_component::ERC20SafeAllowanceCamelImpl<ContractState>;
-
-    #[abi(embed_v0)]
     impl ERC20BridgeableImpl =
         erc20_bridgeable_component::ERC20BridgeableImpl<ContractState>;
 

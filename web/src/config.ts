@@ -77,8 +77,8 @@ const chains = enableTestnets ? [localhostOverride, goerliOverride, mainnetOverr
 
 const config = {
     branding: {
-        name: "$PAPER BRIDGE",
-        tokenName: "$PAPER",
+        name: "PAPER BRIDGE",
+        tokenName: "PAPER",
         logo: "/mark-dark.svg"
     },
     rainbowkit: {

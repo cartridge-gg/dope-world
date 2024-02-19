@@ -1,12 +1,12 @@
 import { Container, Flex } from "@chakra-ui/react";
 import { ReactNode } from "react";
 
-import Topbar from "./Topbar";
-import Footer from "./Footer";
-import { Background } from "./Background";
-import Fonts from "../../theme/fonts";
-import { DesktopOnly } from "./DesktopOnly";
 import useIsMobile from "../../hooks/useIsMobile";
+import Fonts from "../../theme/fonts";
+import { Background } from "./Background";
+import { DesktopOnly } from "./DesktopOnly";
+import Footer from "./Footer";
+import Topbar from "./Topbar";
 
 const Layout = ({ children }: { children: ReactNode }) => {
   const isMobile = useIsMobile();

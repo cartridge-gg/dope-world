@@ -15,7 +15,12 @@ export enum BridgeChains {
     Starknet = "Starknet",
 }
 
-
+export enum BridgeActions {
+    ApproveEthereumBridge = "Approve Ethereum Bridge",
+    WithdrawFromEthereumBridge = "Withdraw from Ethereum Bridge",
+    BridgeToStarknet = "Bridge to Starknet",
+    BridgeToEthereum = "Bridge to Ethereum",
+}
 
 export type Config = typeof config;
 
