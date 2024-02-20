@@ -24,7 +24,7 @@ export default function Terms() {
       </VStack>
 
       <Heading>1. Acceptance of the Terms</Heading>
-      <p>
+      <Text color="text.secondary">
         By entering, connecting to, accessing or using the Site, Interface and/or the Bridge, you acknowledge that you
         have read and understood the following Terms of Service (collectively, the "Terms"), and the terms of our
         Privacy Policy available at{" "}
@@ -58,10 +58,10 @@ export default function Terms() {
         permitted to pursue claims against each other on an individual basis, not as a plaintiff or class member in any
         class or representative action or proceeding and (2) only be permitted to seek relief (including monetary,
         injunctive, and declaratory relief) on an individual basis.
-      </p>
+      </Text>
 
       <Heading>2. The Site, Interface and Bridge - Explanation and Certain Risk Factors </Heading>
-      <p>
+      <Text color="text.secondary">
         The Site and Interface do not offer the Bridge, which is a pair of autonomously functioning smart contracts on
         the Ethereum Blockchain and Starknet, and which may be accessed independently without use of the Site or the
         Interface.2 Use of the Bridge and any activity thereon is subject to any additional terms and conditions that
@@ -105,10 +105,10 @@ export default function Terms() {
         EXCLUSION OF LIABILITY FOR DIRECT, INDIRECT, INCIDENTAL OR CONSEQUENTIAL DAMAGES. ACCORDINGLY, IN SUCH
         JURISDICTIONS THE FOREGOING WILL BE REINTERPRETED SO AS TO BE EFFECTIVE TO GREATEST EXTENT POSSIBLE UNDER
         APPLICABLE LAW.
-      </p>
+      </Text>
 
       <Heading>3. Use Restrictions; Compliance</Heading>
-      <p>
+      <Text color="text.secondary">
         There are certain conducts which are strictly prohibited when using the Site and Interface. Please read the
         following restrictions carefully. Failure to comply with any of the provisions set forth herein may result (at
         Cartridge’s sole discretion) in the termination of your use of the Site and/or Interface and may also expose you
@@ -119,22 +119,25 @@ export default function Terms() {
         to economic sanctions, or if your use of the Interface and/or Bridge would be illegal or otherwise violate any
         applicable law. You may not use the Interface in connection with or which would involve proceeds of any unlawful
         activity.
-      </p>
+      </Text>
 
       <Heading>4. Minors</Heading>
-      <p> The Site, Interface and Bridge are intended for Users over the age of eighteen (18).</p>
+      <Text color="text.secondary">
+        {" "}
+        The Site, Interface and Bridge are intended for Users over the age of eighteen (18).
+      </Text>
 
       <Heading>5. Contacting us via the Site</Heading>
-      <p>
+      <Text color="text.secondary">
         In order to contact us, please email us at:{" "}
         <a href="mailto:legal@cartridge.gg" target="_blank">
           legal@cartridge.gg
         </a>
         .
-      </p>
+      </Text>
 
-      <Heading>9. Links to Third Party Sites</Heading>
-      <p>
+      <Heading>6. Links to Third Party Sites</Heading>
+      <Text color="text.secondary">
         Certain links provided herein may permit our Users to leave this Site and enter non-Cartridge sites or
         platforms. Those linked sites and platforms are provided solely as a convenience to you. These linked sites and
         platform are not under the control of Cartridge and it is not responsible for the availability of such external
@@ -147,18 +150,18 @@ export default function Terms() {
         or indirectly, for any damage or loss caused or alleged to be caused, by or in connection with use of or
         reliance on any platform, content, products or other materials available on or through such linked sites or
         resources.
-      </p>
+      </Text>
 
       <Heading>7. Availability</Heading>
-      <p>
+      <Text color="text.secondary">
         The Site’s, the Interface’s and the Bridge’s availability and functionality depends on various factors, such as
         communication networks and public blockchain networks. Cartridge does not warrant or guarantee that the Site
         and/or Interface and/or Bridge will operate and/or be available at all times without disruption or interruption,
         or that it will be immune from unauthorized access or error-free.
-      </p>
+      </Text>
 
       <Heading>8. Changes to The Site</Heading>
-      <p>
+      <Text color="text.secondary">
         Cartridge reserves the right to modify, correct, amend, enhance, improve, make any other changes to, or
         discontinue, temporarily or permanently this Site and/or the Interface and/or Bridge1 (or any part thereof)
         without notice, at any time. In addition, you hereby acknowledge that the content provided under this Site may
@@ -166,10 +169,10 @@ export default function Terms() {
         that Cartridge shall not be liable to you or to any third party for any modification, suspension, or
         discontinuance of this Site or the Interface or the Bridge. You hereby agree that Cartridge is not responsible
         for any errors or malfunctions that may occur in connection with the performance of such changes.
-      </p>
+      </Text>
 
       <Heading>9. Disclaimers and No Warranties</Heading>
-      <p>
+      <Text color="text.secondary">
         TO THE FULLEST EXTENT LEGALLY PERMISSIBLE, THE SITE AND THE INTERFACE ARE PROVIDED ON AN "AS IS", "WITH ALL
         FAULTS" AND "AS AVAILABLE" BASIS, AND CARTRIDGE, INCLUDING ITS VENDORS, OFFICERS, SHAREHOLDERS, SUB-CONTRACTORS,
         DIRECTORS, EMPLOYEES, AFFILIATES, SUBSIDIARIES, LICENSORS, AGENTS AND SUPPLIERS (COLLECTIVELY, "CARTRIDGE’S
@@ -194,10 +197,10 @@ export default function Terms() {
         PROVIDERS OR ANY BLOCKCHAIN NETWORK. YOU AGREE THAT USE OF THE SITE, THE INTERFACE AND/OR THE BRIDGE IS ENTIRELY
         AT YOUR OWN RISK. INASMUCH AS SOME JURISDICTIONS DO NOT ALLOW THE EXCLUSIONS OR LIMITATIONS AS SET FORTH HEREIN,
         THE FULL EXTENT OF THE ABOVE EXCLUSIONS AND LIMITATIONS MAY NOT APPLY.
-      </p>
+      </Text>
 
       <Heading>10. Limitation of Liability</Heading>
-      <p>
+      <Text color="text.secondary">
         TO THE MAXIMUM EXTENT LEGALLY PERMISSIBLE, IN NO EVENT SHALL CARTRIDGE, INCLUDING CARTRIDGE’S REPRESENTATIVES BE
         LIABLE FOR ANY DAMAGES WHATSOEVER, INCLUDING, BUT NOT LIMITED TO, DIRECT, INDIRECT, SPECIAL, PUNITIVE,
         EXEMPLARY, INCIDENTAL OR CONSEQUENTIAL DAMAGES OF ANY KIND, UNDER ANY LEGAL THEORY (INCLUDING, WITHOUT
@@ -218,20 +221,20 @@ export default function Terms() {
         DAMAGES FROM CARTRIDGE AND FROM CARTRIDGE’S REPRESENTATIVES. INASMUCH AS SOME JURISDICTIONS DO NOT ALLOW THE
         EXCLUSIONS OR LIMITATIONS AS SET FORTH HEREIN, THE FULL EXTENT OF THE ABOVE EXCLUSIONS AND LIMITATIONS MAY NOT
         APPLY.
-      </p>
+      </Text>
 
       <Heading>11. Release of Claims</Heading>
-      <p>
+      <Text color="text.secondary">
         The source code of the software underlying the Bridge is publicly accessible. Before using the Interface and the
         Bridge, it is your responsibility to familiarize yourself with the functionality and methods of operation of the
         Bridge. You expressly agree that you assume all risks in connection with your access and use of the Interface
         and your interaction with the Bridge. You further expressly waive and release us from any and all liability,
         claims, causes of action, or damages arising from or in any way relating to your use of the Interface and your
         interaction with the Bridge.
-      </p>
+      </Text>
 
       <Heading>12. Amendments to the Terms</Heading>
-      <p>
+      <Text color="text.secondary">
         Cartridge may, at its sole discretion, change the Terms from time to time, including any other policies
         incorporated thereto, so please re-visit this page frequently. In case of any material change, we will make
         reasonable efforts to post a clear notice on the Site regarding such change. Such material changes will take
@@ -240,12 +243,12 @@ export default function Terms() {
         Bridge on or after the Last Revised date will constitute acceptance of, and agreement to be bound by, those
         changes. In the event that the Terms should be amended to comply with any legal requirements or security
         concerns, the amendments may take effect immediately, or as required by the law and without any prior notice.
-      </p>
+      </Text>
 
       <Heading>
         13. Termination of these Terms and the Termination of the Site’s and Interface’s and Bridge’s Operation
       </Heading>
-      <p>
+      <Text color="text.secondary">
         At any time, Cartridge may without notice discontinue your use of the Site or the Interface or the Bridge, at
         its sole discretion, in addition to any other remedies that may be available to Cartridge under any applicable
         law. Additionally, Cartridge may at any time, at its sole discretion, cease the operation of the Site or the
@@ -258,12 +261,12 @@ export default function Terms() {
         the fundamental purposes of these Terms shall so survive. Without limiting the generality of the forgoing, the
         Intellectual Property, Disclaimer and Warranties, Limitation of Liability, Indemnification and General sections
         will survive the termination of the Terms.
-      </p>
+      </Text>
 
       <Heading>
         14. Governing Law; Jurisdiction; Agreement to Arbitrate; No Class Action; Waiver of Right to Jury Trial
       </Heading>
-      <p>
+      <Text color="text.secondary">
         Any claim relating to the Site, the Interface, the Bridge, or the use thereof shall be decided solely and
         exclusively by binding arbitration conducted in person, through the submission of documents, by phone, or online
         by JAMS (the "Agreement to Arbitrate"). If the arbitration is to be conducted in person, then the arbitration
@@ -287,10 +290,10 @@ export default function Terms() {
         proceeding arising out of or relating to this Agreement in the courts referred to in this Section. This clause
         shall not preclude parties from seeking provisional remedies in aid of arbitration from a court of appropriate
         jurisdiction.
-      </p>
+      </Text>
 
       <Heading>15. General</Heading>
-      <p>
+      <Text color="text.secondary">
         General (a) These Terms constitute the entire terms and conditions between you and Cartridge relating to the
         subject matter herein and supersedes any and all prior or contemporaneous written or oral agreements or
         understandings between you and Cartridge, (b) these Terms do not, and shall not be construed to create any
@@ -308,7 +311,7 @@ export default function Terms() {
         transfer these Terms without restriction or notification, (h) no amendment hereof will be binding unless in
         writing and signed by Cartridge, and (i) the parties agree that all correspondence relating to these Terms shall
         be written and in the English language.
-      </p>
+      </Text>
     </VStack>
   );
 }
