@@ -52,7 +52,7 @@ export default function Faq() {
           <Heading fontSize="18px">What is Paper?</Heading>
           <Text color="text.secondary">
             Paper is the ecosystem token for{" "}
-            <a href="https://dopewars.gg/" target="_blank" style={{ textDecoration: "underline" }}>
+            <a href="https://dopewars.xyz/" target="_blank" style={{ textDecoration: "underline" }}>
               Dope Wars
             </a>{" "}
             an onchain gaming DAO created in 2021
