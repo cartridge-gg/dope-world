@@ -21,7 +21,7 @@ import {
   useSteps,
 } from "@chakra-ui/react";
 
-import { useWaitForTransaction as useWaitForTransactionStarknet } from "@starknet-react/core";
+import { useTransactionReceipt as useWaitForTransactionStarknet } from "@starknet-react/core";
 import { Dispatch, SetStateAction, useEffect } from "react";
 import {
   Address,

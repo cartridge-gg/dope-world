@@ -1,7 +1,15 @@
 import React from "react";
 
-import { goerli, mainnet } from "@starknet-react/chains";
-import { StarknetConfig, argent, braavos, publicProvider, useInjectedConnectors, voyager } from "@starknet-react/core";
+import { Chain, mainnet } from "@starknet-react/chains";
+import {
+  StarknetConfig,
+  argent,
+  braavos,
+  jsonRpcProvider,
+  // publicProvider,
+  useInjectedConnectors,
+  voyager,
+} from "@starknet-react/core";
 
 export function StarknetProviders({ children }: { children: React.ReactNode }) {
   const { connectors } = useInjectedConnectors({
@@ -11,6 +19,16 @@ export function StarknetProviders({ children }: { children: React.ReactNode }) {
     includeRecommended: "always",
     // Randomize the order of the connectors.
     //order: "random"
+  });
+
+  const cartridgeProvider = jsonRpcProvider({
+    rpc: (chain: Chain) => {
+      return {
+        nodeUrl: chain.testnet
+          ? "https://api.cartridge.gg/x/starknet/sepolia"
+          : "https://api.cartridge.gg/x/starknet/mainnet",
+      };
+    },
   });
 
   // TO USE CUSTOM PROVIDER :
@@ -26,9 +44,9 @@ export function StarknetProviders({ children }: { children: React.ReactNode }) {
   return (
     <StarknetConfig
       autoConnect={true}
-      chains={[/*devnet,*/ goerli, /*sepolia, */ mainnet]} // seems provider doesnt update when changing chain
-      //chains={[/*devnet,*/ goerli, /*sepolia, */ mainnet]} // seems provider doesnt update when changing chain
-      provider={publicProvider()}
+      chains={[/*devnet,*/ /*sepolia, */ mainnet]} // seems provider doesnt update when changing chain
+      //chains={[/*devnet,*/  /*sepolia, */ mainnet]} // seems provider doesnt update when changing chain
+      provider={cartridgeProvider}
       connectors={connectors}
       explorer={voyager}
     >
@@ -41,9 +59,6 @@ export const getStarknetChainIdFromEthereumChain = (ethereumChain: Partial<{ net
   switch (ethereumChain.network) {
     case "homestead":
       return "SN_MAIN";
-
-    case "goerli":
-      return "SN_GOERLI";
 
     case "sepolia":
       return "SN_SEPOLIA";
