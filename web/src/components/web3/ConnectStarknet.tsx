@@ -45,17 +45,17 @@ export const ConnectStarknet = ({ ...props }) => {
   //   init();
   // }, []);
 
-  // const {
-  //   // isLoading,
-  //   // isError,
-  //   // error,
-  //   data: ethBalance,
-  // } = useBalance({
-  //   token: "0x049d36570d4e46f48e99674bd3fcc84644ddd6b96f7c741b1562b82f9e004dc7",
-  //   address,
-  //   refetchInterval: 5_000,
-  //   watch: false
-  // });
+  const {
+    // isLoading,
+    // isError,
+    // error,
+    data: ethBalance,
+  } = useBalance({
+    token: "0x049d36570d4e46f48e99674bd3fcc84644ddd6b96f7c741b1562b82f9e004dc7",
+    address,
+    refetchInterval: 5_000,
+    watch: false
+  });
 
   const [isConnectModalOpen, setIsConnectModalOpen] = useState(false);
   const [isAccountModalOpen, setIsAccountModalOpen] = useState(false);
@@ -80,7 +80,7 @@ export const ConnectStarknet = ({ ...props }) => {
             <HStack>
               <Starknet width="20px" height="20px" />
               <Text>{frenlyAddress(account.address || "")}</Text>
-              {/* <Text>Ξ{Number(ethBalance?.formatted).toFixed(3)}</Text> */}
+              <Text>Ξ{Number(ethBalance?.formatted).toFixed(3)}</Text>
             </HStack>
           </Button>
         )}
@@ -223,7 +223,7 @@ const ConnectModal = ({
                 }}
               >
                 <HStack>
-                  <Image src={connector.icon.dark} width="24px" height="24px" />
+                  <Image src={typeof connector.icon == "string" ? connector.icon : connector.icon.dark} width="24px" height="24px" />
                   <Text>{connector.name}</Text>
                 </HStack>
               </Button>

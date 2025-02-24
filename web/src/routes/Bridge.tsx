@@ -3,8 +3,8 @@ import { useEffect, useState } from "react";
 import { Box, Button, Card, CardBody, HStack, Heading, Spinner, VStack } from "@chakra-ui/react";
 
 import {
-  useContractRead as useStarknetContractRead,
-  useContractWrite as useStarknetContractWrite,
+  useCall as useStarknetContractRead,
+  useSendTransaction as useStarknetContractWrite,
 } from "@starknet-react/core";
 import { useContractRead as useEthereumContractRead, useContractWrite as useEthereumContractWrite } from "wagmi";
 import { Ethereum, HistoryIcon, InformationIcon, PaperIcon, Starknet, Swap } from "../components/Icons";
@@ -173,10 +173,11 @@ const Bridge = () => {
     address: getStarknetBridgeAddress(ethereumChainId),
     abi: config.bridge.sn.abi,
     functionName: "get_token",
+    args: [],
   });
 
   const { data: starknetTokenBalance, refetch: refetchStarknetTokenBalance } = useStarknetContractRead({
-    address: starknetTokenAddress as string,
+    address: starknetTokenAddress as `0x${string}`,
     abi: config.bridge.sn.tokenAbi,
     functionName: "balance_of",
     args: [starknetAccount.address || "0x0"],
@@ -190,7 +191,7 @@ const Bridge = () => {
 
   const {
     data: starknetBridgeWithdrawData,
-    writeAsync: starknetBridgeWithdraw,
+    sendAsync: starknetBridgeWithdraw,
     isPending: isPendingStarknetBridgeWithdraw,
     isSuccess: isSuccessStarknetBridgeWithdraw,
     isError: isErrorStarknetBridgeWithdraw,
@@ -332,8 +333,8 @@ const Bridge = () => {
     if (direction === BridgeDirection.FromStarknetToEthereum) {
       const starknetBridgeContract = new Contract(config.bridge.sn.abi, getStarknetBridgeAddress(ethereumChainId));
 
-      await starknetBridgeWithdraw({
-        calls: starknetBridgeContract
+      await starknetBridgeWithdraw(
+        starknetBridgeContract
           ? [
               starknetBridgeContract.populateTransaction["initiate_withdrawal"]!(
                 ethereumAccount.address || 0,
@@ -341,8 +342,8 @@ const Bridge = () => {
                 uint256.bnToUint256(parseEther(sanitizeAmount(tokenAmount))).high
               ),
             ]
-          : [],
-      });
+          : []
+      );
 
       setTimeout(() => refreshEvents(), 5_000);
     }
